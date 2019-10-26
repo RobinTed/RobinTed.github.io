@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="frida逆向安卓基础介绍">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T12:45:50.041Z">
+<meta property="og:updated_time" content="2019-10-26T12:54:16.043Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/frida-android/">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 14:58:25 / Modified: 20:45:50" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 14:58:25 / Modified: 20:54:16" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,6 +274,8 @@
 
 <p>zs.js:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;javascript load successfully&apos;);</span><br><span class="line">Java.perform(function () &#123;</span><br><span class="line">    var encrypt = Java.use(&apos;com.zs.Encrypt&apos;);</span><br><span class="line">    encrypt.md5.overload(&apos;java.lang.String&apos;).implementation = function(x)&#123;</span><br><span class="line">        var result = encrypt.md5.overload(&apos;java.lang.String&apos;).call(this, x);</span><br><span class="line">        console.log(&quot;md5 x : &quot; + x);</span><br><span class="line">        console.log(&quot;md5 result : &quot; + result);</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
 
 <h2 id="4-代码解释"><a href="#4-代码解释" class="headerlink" title="4.代码解释"></a>4.代码解释</h2><p>###Python代码</p>
 <p>python文件里面首先需要导入frida库：<code>import frida</code> </p>
