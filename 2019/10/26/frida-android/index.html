@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="frida逆向安卓基础介绍">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T13:16:55.056Z">
+<meta property="og:updated_time" content="2019-10-26T13:31:52.897Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/frida-android/">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 14:58:25 / Modified: 21:16:55" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 14:58:25 / Modified: 21:31:52" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,47 +248,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="frida介绍"><a href="#frida介绍" class="headerlink" title="frida介绍"></a>frida介绍</h1><p>frida官网frida.io，官方介绍frida是一个针对于开发者、逆向工程师和安全研究人员的<strong>动态</strong>工具包。确切的说它是属于动态二进制插桩机制工具之一。</p>
+        <h2 id="frida介绍"><a href="#frida介绍" class="headerlink" title="frida介绍"></a>frida介绍</h2><p>frida官网frida.io，官方介绍frida是一个针对于开发者、逆向工程师和安全研究人员的<strong>动态</strong>工具包。确切的说它是属于动态二进制插桩机制工具之一。</p>
 <p>frida可以将JavaScript代码注入到APP中，支持Windows，MacOS，Android，iOS，GNU/Linux和QNX。基本支持目前大多数平台。后面主要描述frida在Android上的使用，其他更多平台可以访问frida<a href="https://www.frida.re/docs/home/" target="_blank" rel="noopener">官方文档</a>。</p>
-<h1 id="安装frida"><a href="#安装frida" class="headerlink" title="安装frida"></a>安装frida</h1><h2 id="电脑安装"><a href="#电脑安装" class="headerlink" title="电脑安装"></a>电脑安装</h2><p>首先需要在电脑上安装frida环境，推荐最新版本Python3:</p>
-<p>​    <code>pip install frida-tools</code></p>
-<p>##手机安装</p>
-<p>###下载文件:</p>
-<p>手机上面需要上传一个frida的服务文件：<a href="https://github.com/frida/frida/releases" target="_blank" rel="noopener">点击下载</a>推荐下载最新版本，如果是安卓手机，一般是arm架构，根据自己的位数选择64位<a href="https://github.com/frida/frida/releases/download/12.7.13/frida-server-12.7.13-android-arm64.xz" target="_blank" rel="noopener">frida-server-12.7.13-android-arm64.xz</a>或者32位<a href="https://github.com/frida/frida/releases/download/12.7.13/frida-server-12.7.13-android-arm.xz" target="_blank" rel="noopener">frida-server-12.7.13-android-arm.xz</a>。</p>
-<p>###上传手机</p>
-<p>下载下来后将文件重命名为frida-server即可，然后手机进入su(需要root)，再进入/data/local/tmp文件夹，将刚刚更名的frida-server放到这个文件夹下面，注意需要给frida-server更改权限，不然会提示权限不足，更改权限：<code>chmod 755 frida-server</code>。</p>
-<p>###运行</p>
-<p>运行直接输入：<code>./frida-server</code>即可，如果需要后台运行，输入：<code>./frida-server &amp;</code></p>
+<h2 id="安装frida"><a href="#安装frida" class="headerlink" title="安装frida"></a>安装frida</h2><h3 id="电脑安装"><a href="#电脑安装" class="headerlink" title="电脑安装"></a>电脑安装</h3><p>首先需要在电脑上安装frida环境，推荐最新版本Python3:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install frida-tools</span><br></pre></td></tr></table></figure>
+
+<h3 id="手机安装"><a href="#手机安装" class="headerlink" title="手机安装"></a>手机安装</h3><h4 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件:"></a>下载文件:</h4><p>手机上面需要上传一个frida的服务文件：<a href="https://github.com/frida/frida/releases" target="_blank" rel="noopener">点击下载</a>推荐下载最新版本，如果是安卓手机，一般是arm架构，根据自己的位数选择64位<a href="https://github.com/frida/frida/releases/download/12.7.13/frida-server-12.7.13-android-arm64.xz" target="_blank" rel="noopener">frida-server-12.7.13-android-arm64.xz</a>或者32位<a href="https://github.com/frida/frida/releases/download/12.7.13/frida-server-12.7.13-android-arm.xz" target="_blank" rel="noopener">frida-server-12.7.13-android-arm.xz</a>。</p>
+<h4 id="上传手机"><a href="#上传手机" class="headerlink" title="上传手机"></a>上传手机</h4><p>下载下来后将文件重命名为frida-server即可，然后手机进入su(需要root)，再进入/data/local/tmp文件夹，将刚刚更名的frida-server放到这个文件夹下面，注意需要给frida-server更改权限，不然会提示权限不足，更改权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 frida-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>运行直接输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frida-server</span><br></pre></td></tr></table></figure>
+
+<p>即可，如果需要后台运行，输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frida-server &amp;</span><br></pre></td></tr></table></figure>
+
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>电脑和手机上面都安装好后就可以测试是否安装好。切记电脑上面连接的手机只有要测试的手机，不然frida不知道连接哪一个就会随机选一个，可能会出现提示说frida-server不存在等，有多个也可以，需要指定手机id，查看手机id：<code>adb devices</code>。</p>
 <p>现在可以在控制台输入<code>frid-ps -U</code>，如果出现PID和NAME手机存在的进程，就证明环境是搭好了。</p>
-<p>###用frida打开APP</p>
-<p>现在我们来初识一下frida的强大，在控制台输入: <code>frida-trace -U -i open com.android.chrome</code> 就可以打开Chrome了，</p>
-<h1 id="简单hook"><a href="#简单hook" class="headerlink" title="简单hook"></a>简单hook</h1><h2 id="集成环境安装frida"><a href="#集成环境安装frida" class="headerlink" title="集成环境安装frida"></a>集成环境安装frida</h2><p>这里采用pycharm作为示例，打开设置，搜索project interpreter，搜索frida最新版本，然后安装。</p>
-<h2 id="写代码"><a href="#写代码" class="headerlink" title="写代码"></a>写代码</h2><p>可以把JavaScript的代码写到Python一个文件里面，采用三个点将JavaScript代码包裹起来。但是这里将JavaScript代码和Python代码分开写，更清晰，后面比较复杂的hook，JavaScript代码就会很多，所以个人建议还是分开写比较好。</p>
+<h4 id="用frida打开APP"><a href="#用frida打开APP" class="headerlink" title="用frida打开APP"></a>用frida打开APP</h4><p>现在我们来初识一下frida的强大，在控制台输入: <code>frida-trace -U -i open com.android.chrome</code> 就可以打开Chrome了，</p>
+<h2 id="简单hook"><a href="#简单hook" class="headerlink" title="简单hook"></a>简单hook</h2><h3 id="集成环境安装frida"><a href="#集成环境安装frida" class="headerlink" title="集成环境安装frida"></a>集成环境安装frida</h3><p>这里采用pycharm作为示例，打开设置，搜索project interpreter，搜索frida最新版本，然后安装。</p>
+<h3 id="写代码"><a href="#写代码" class="headerlink" title="写代码"></a>写代码</h3><p>可以把JavaScript的代码写到Python一个文件里面，采用三个点将JavaScript代码包裹起来。但是这里将JavaScript代码和Python代码分开写，更清晰，后面比较复杂的hook，JavaScript代码就会很多，所以个人建议还是分开写比较好。</p>
 <p>我们在同一文件夹下面新建两个文件(同一文件夹是为了方便，不在一个文件夹也行)，一个.py，一个.js，个人习惯将JavaScript和Python两个文件的名字都命为待hook APP的名字，比如目标APP名为：张三，则新建一个文件名为zs，然后在zs文件夹下面新建一个zs.js和zs.py。</p>
-<p>##代码</p>
-<p>文件建好后，我们来写一个最简单的代码：</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>文件建好后，我们来写一个最简单的代码：</p>
 <p>zs.py:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida</span><br><span class="line"></span><br><span class="line">session = frida.get_usb_device().attach(<span class="string">'com.android.zs'</span>)</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'zs.js'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    script = session.create_script(f.read())</span><br><span class="line">script.load()</span><br></pre></td></tr></table></figure>
 
 <p>zs.js:</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'javascript load successfully'</span>);</span><br><span class="line">Java.perform(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> encrypt = Java.use(<span class="string">'com.zs.Encrypt'</span>);</span><br><span class="line">    encrypt.md5.overload(<span class="string">'java.lang.String'</span>).implementation = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> result = encrypt.md5.overload(<span class="string">'java.lang.String'</span>).call(<span class="keyword">this</span>, x);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"md5 x : "</span> + x);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"md5 result : "</span> + result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-
-
-<h2 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h2><p>###Python代码</p>
-<p>python文件里面首先需要导入frida库：<code>import frida</code> </p>
+<h3 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h3><h4 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h4><p>python文件里面首先需要导入frida库：<code>import frida</code> </p>
 <p>然后获取需要插入目标的APP：<code>frida.get_usb_device().attach(&#39;com.android.zs&#39;)</code> 这里的<code>com.android.zs</code>是目标APP的名字，所以必须首先要打开目标APP才行，打开目标APP后，在控制台输入：<code>adb shell dumpsys activity | findstr &quot;mFocusedActivity&quot;</code> 命令，即可获取。</p>
 <p>下一步就是打开目标hook JavaScript代码然后加载，获取设备和hook目标APP的方法还有很多，这里只写了一种最简单的，后面用到再写。</p>
 <p>最后load进来。</p>
-<h3 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h3><p>第一行对于hook没有实质作用，起到一个提醒加载js代码成功的作用，习惯写上。</p>
+<h4 id="js代码"><a href="#js代码" class="headerlink" title="js代码"></a>js代码</h4><p>第一行对于hook没有实质作用，起到一个提醒加载js代码成功的作用，习惯写上。</p>
 <p>然后就是<code>Java.perform(function () {});</code> frida会将Java.perform作为入口函数。</p>
 <p> <code>var encrypt = Java.use(&#39;com.zs.Encrypt&#39;);</code>这行代码是hook目标函数，<code>com.zs.encrypt</code>就是需要hook的函数，注意返回不能用let，要用var，不支持let。拿到目标函数对象后，就可以开始hook了。</p>
 <p><code>encrypt.md5.overload(&#39;java.lang.String&#39;)</code> 的意思是hook Encrypt这个类的md5这个方法，overload和java里面是一个意思，重载。如果md5这个名字是Encrypt这个类里面的唯一方法名，就可以不写<code>overload(&#39;java.lang.String&#39;)</code> 这个重载，但是我习惯还是写上，因为到了后面hook比较复杂的APP，其中的函数名就很可能经过了混淆，一眼看不出来是不是唯一的方法名，所以写上重载准没错。</p>
 <p><code>var result = encrypt.md5.overload(&#39;java.lang.String&#39;).call(this, x);</code>这一行就是调用目标方法，得到返回值，如果目标方法有返回值，一定要记得调用，而且要记得返回：<code>return result;</code> 不然APP运行的时候得不到正确的结果。</p>
 <p><code>console.log(&quot;md5 x : &quot; + x);
  console.log(&quot;md5 result : &quot; + result);</code> 这两行就是打印hook的结果，打印的前缀习惯用方法名加参数名，然后加上值，这样在需要hook很多函数的时候方便辨识，有时候前面也可以加上函数名用以区分。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>frida是一个非常方便的实现了动态二进制插桩机制的工具</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>frida是一个非常方便的实现了动态二进制插桩机制的工具</p>
 <p>frida的插入代码主要是JavaScript，可以结合Python提供更方便的服务</p>
 <p>查找目标hook函数进行动态插入代码，打印目标方法值。具体怎么查找目标方法，可以自行查询，后面也会介绍。</p>
 
@@ -311,14 +310,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/2019/10/26/hello-world/" rel="next" title="frida_android">
+                  <i class="fa fa-chevron-left"></i> frida_android
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/10/26/hello-world/" rel="prev" title="frida_android">
-                  frida_android <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -357,7 +356,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#frida介绍"><span class="nav-number">1.</span> <span class="nav-text">frida介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装frida"><span class="nav-number">2.</span> <span class="nav-text">安装frida</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#电脑安装"><span class="nav-number">2.1.</span> <span class="nav-text">电脑安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单hook"><span class="nav-number">3.</span> <span class="nav-text">简单hook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成环境安装frida"><span class="nav-number">3.1.</span> <span class="nav-text">集成环境安装frida</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写代码"><span class="nav-number">3.2.</span> <span class="nav-text">写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码解释"><span class="nav-number">3.3.</span> <span class="nav-text">代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码"><span class="nav-number">3.3.1.</span> <span class="nav-text">js代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#frida介绍"><span class="nav-number">1.</span> <span class="nav-text">frida介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装frida"><span class="nav-number">2.</span> <span class="nav-text">安装frida</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#电脑安装"><span class="nav-number">2.1.</span> <span class="nav-text">电脑安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手机安装"><span class="nav-number">2.2.</span> <span class="nav-text">手机安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载文件"><span class="nav-number">2.2.1.</span> <span class="nav-text">下载文件:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传手机"><span class="nav-number">2.2.2.</span> <span class="nav-text">上传手机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">2.2.3.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">2.3.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用frida打开APP"><span class="nav-number">2.3.1.</span> <span class="nav-text">用frida打开APP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单hook"><span class="nav-number">3.</span> <span class="nav-text">简单hook</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集成环境安装frida"><span class="nav-number">3.1.</span> <span class="nav-text">集成环境安装frida</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写代码"><span class="nav-number">3.2.</span> <span class="nav-text">写代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">3.3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解释"><span class="nav-number">3.4.</span> <span class="nav-text">代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python代码"><span class="nav-number">3.4.1.</span> <span class="nav-text">Python代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js代码"><span class="nav-number">3.4.2.</span> <span class="nav-text">js代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
