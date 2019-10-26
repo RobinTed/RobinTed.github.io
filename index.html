@@ -217,7 +217,30 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 22:12:37 / Modified: 22:32:06" itemprop="dateCreated datePublished" datetime="2019-10-26T22:12:37+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 22:12:37 / Modified: 22:35:28" itemprop="dateCreated datePublished" datetime="2019-10-26T22:12:37+08:00">2019-10-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/" itemprop="url" rel="index">
+                    <span itemprop="name">逆向</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/%E5%AE%89%E5%8D%93/" itemprop="url" rel="index">
+                    <span itemprop="name">安卓</span>
+                  </a>
+                </span>
             </span>
 
           
@@ -231,23 +254,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="查看当前应用进程名称"><a href="#查看当前应用进程名称" class="headerlink" title="查看当前应用进程名称"></a>查看当前应用进程名称</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell dumpsys activity | findstr <span class="string">"mFocusedActivity"</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="查看手机名称"><a href="#查看手机名称" class="headerlink" title="查看手机名称"></a>查看手机名称</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb devices</span><br></pre></td></tr></table></figure>
-
-<h4 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb push local_file_path mobile_path</span><br></pre></td></tr></table></figure>
-
-<h4 id="拉取文件"><a href="#拉取文件" class="headerlink" title="拉取文件"></a>拉取文件</h4><p>拉取文件一般从sdcard中拉取，所以砸壳后的dex文件要先move到sdcard中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb pull mobile_path local_file_path</span><br></pre></td></tr></table></figure>
-
-<h4 id="打印日志到屏幕"><a href="#打印日志到屏幕" class="headerlink" title="打印日志到屏幕"></a>打印日志到屏幕</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb logcat -v time Sum:D *:S</span><br></pre></td></tr></table></figure>
-
-<h4 id="打印日志到文件"><a href="#打印日志到文件" class="headerlink" title="打印日志到文件"></a>打印日志到文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb logcat -v time &gt; path</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看安卓架构"><a href="#查看安卓架构" class="headerlink" title="查看安卓架构"></a>查看安卓架构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell getprop ro.product.cpu.abi</span><br></pre></td></tr></table></figure>
-
-<h4 id="adb远程连接"><a href="#adb远程连接" class="headerlink" title="adb远程连接"></a>adb远程连接</h4><p>1.连接数据线转发端口：adb tcpip 5555<br>2.拔线 adb connect ip:5555<br>3.adb devices测试<br>4.断开连接：adb disconnect ip:5555</p>
-<h4 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h4>
+          安卓常用命令
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/10/26/%E9%80%86%E5%90%91%E5%AE%89%E5%8D%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -476,7 +491,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
