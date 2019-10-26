@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="frida逆向安卓基础介绍">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T12:54:16.043Z">
+<meta property="og:updated_time" content="2019-10-26T13:06:18.116Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/frida-android/">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 14:58:25 / Modified: 20:54:16" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 14:58:25 / Modified: 21:06:18" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,8 +250,7 @@
       
         <h1 id="frida介绍"><a href="#frida介绍" class="headerlink" title="frida介绍"></a>frida介绍</h1><p>frida官网frida.io，官方介绍frida是一个针对于开发者、逆向工程师和安全研究人员的<strong>动态</strong>工具包。确切的说它是属于动态二进制插桩机制工具之一。</p>
 <p>frida可以将JavaScript代码注入到APP中，支持Windows，MacOS，Android，iOS，GNU/Linux和QNX。基本支持目前大多数平台。后面主要描述frida在Android上的使用，其他更多平台可以访问frida<a href="https://www.frida.re/docs/home/" target="_blank" rel="noopener">官方文档</a>。</p>
-<h1 id="安装frida"><a href="#安装frida" class="headerlink" title="安装frida"></a>安装frida</h1><p>##电脑安装</p>
-<p>首先需要在电脑上安装frida环境，推荐最新版本Python3:</p>
+<h1 id="安装frida"><a href="#安装frida" class="headerlink" title="安装frida"></a>安装frida</h1><h2 id="电脑安装"><a href="#电脑安装" class="headerlink" title="电脑安装"></a>电脑安装</h2><p>首先需要在电脑上安装frida环境，推荐最新版本Python3:</p>
 <p>​    <code>pip install frida-tools</code></p>
 <p>##手机安装</p>
 <p>###1.下载文件:</p>
@@ -358,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#frida介绍"><span class="nav-number">1.</span> <span class="nav-text">frida介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装frida"><span class="nav-number">2.</span> <span class="nav-text">安装frida</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-测试"><span class="nav-number">2.0.1.</span> <span class="nav-text">4.测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单hook"><span class="nav-number">3.</span> <span class="nav-text">简单hook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-集成环境安装frida"><span class="nav-number">3.1.</span> <span class="nav-text">1.集成环境安装frida</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-写代码"><span class="nav-number">3.2.</span> <span class="nav-text">2.写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-代码解释"><span class="nav-number">3.3.</span> <span class="nav-text">4.代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码"><span class="nav-number">3.3.1.</span> <span class="nav-text">js代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#frida介绍"><span class="nav-number">1.</span> <span class="nav-text">frida介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装frida"><span class="nav-number">2.</span> <span class="nav-text">安装frida</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#电脑安装"><span class="nav-number">2.1.</span> <span class="nav-text">电脑安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-测试"><span class="nav-number">2.1.1.</span> <span class="nav-text">4.测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单hook"><span class="nav-number">3.</span> <span class="nav-text">简单hook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-集成环境安装frida"><span class="nav-number">3.1.</span> <span class="nav-text">1.集成环境安装frida</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-写代码"><span class="nav-number">3.2.</span> <span class="nav-text">2.写代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-代码解释"><span class="nav-number">3.3.</span> <span class="nav-text">4.代码解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#js代码"><span class="nav-number">3.3.1.</span> <span class="nav-text">js代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
