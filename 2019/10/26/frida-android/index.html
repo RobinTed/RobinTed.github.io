@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="frida逆向安卓基础介绍">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T13:31:52.897Z">
+<meta property="og:updated_time" content="2019-10-26T13:36:00.003Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/frida-android/">
@@ -210,7 +210,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 14:58:25 / Modified: 21:31:52" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 14:58:25 / Modified: 21:36:00" itemprop="dateCreated datePublished" datetime="2019-10-26T14:58:25+08:00">2019-10-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -265,7 +265,7 @@
 
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>电脑和手机上面都安装好后就可以测试是否安装好。切记电脑上面连接的手机只有要测试的手机，不然frida不知道连接哪一个就会随机选一个，可能会出现提示说frida-server不存在等，有多个也可以，需要指定手机id，查看手机id：<code>adb devices</code>。</p>
 <p>现在可以在控制台输入<code>frid-ps -U</code>，如果出现PID和NAME手机存在的进程，就证明环境是搭好了。</p>
-<h4 id="用frida打开APP"><a href="#用frida打开APP" class="headerlink" title="用frida打开APP"></a>用frida打开APP</h4><p>现在我们来初识一下frida的强大，在控制台输入: <code>frida-trace -U -i open com.android.chrome</code> 就可以打开Chrome了，</p>
+<h4 id="用frida打开APP"><a href="#用frida打开APP" class="headerlink" title="用frida打开APP"></a>用frida打开APP</h4><p>现在我们来初识一下frida的强大，在控制台输入: <code>frida-trace -U -i open com.android.chrome</code> 就可以打开Chrome了</p>
 <h2 id="简单hook"><a href="#简单hook" class="headerlink" title="简单hook"></a>简单hook</h2><h3 id="集成环境安装frida"><a href="#集成环境安装frida" class="headerlink" title="集成环境安装frida"></a>集成环境安装frida</h3><p>这里采用pycharm作为示例，打开设置，搜索project interpreter，搜索frida最新版本，然后安装。</p>
 <h3 id="写代码"><a href="#写代码" class="headerlink" title="写代码"></a>写代码</h3><p>可以把JavaScript的代码写到Python一个文件里面，采用三个点将JavaScript代码包裹起来。但是这里将JavaScript代码和Python代码分开写，更清晰，后面比较复杂的hook，JavaScript代码就会很多，所以个人建议还是分开写比较好。</p>
 <p>我们在同一文件夹下面新建两个文件(同一文件夹是为了方便，不在一个文件夹也行)，一个.py，一个.js，个人习惯将JavaScript和Python两个文件的名字都命为待hook APP的名字，比如目标APP名为：张三，则新建一个文件名为zs，然后在zs文件夹下面新建一个zs.js和zs.py。</p>
