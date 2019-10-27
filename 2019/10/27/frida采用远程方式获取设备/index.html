@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="frida远程获取设备进行hook">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-27T06:31:04.164Z">
+<meta property="og:updated_time" content="2019-10-27T06:33:16.498Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/">
@@ -215,7 +215,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-27 14:01:54 / Modified: 14:31:04" itemprop="dateCreated datePublished" datetime="2019-10-27T14:01:54+08:00">2019-10-27</time>
+              <time title="Created: 2019-10-27 14:01:54 / Modified: 14:33:16" itemprop="dateCreated datePublished" datetime="2019-10-27T14:01:54+08:00">2019-10-27</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -266,10 +266,13 @@
 <h2 id="有线连接设备"><a href="#有线连接设备" class="headerlink" title="有线连接设备"></a>有线连接设备</h2><p>这里再写一下数据线连接，方便对比</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida.get_usb_device().attach(<span class="string">'com.android.zs'</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="两种方式比较"><a href="#两种方式比较" class="headerlink" title="两种方式比较"></a>两种方式比较</h2><h3 id="无线连接"><a href="#无线连接" class="headerlink" title="无线连接"></a>无线连接</h3><pre><code>优点：方便
-缺点：受到网络影响，如果手机网络断了一下，就会出现script has been destroyed。即使是后面又自动连上网络了。</code></pre><h3 id="数据线连接"><a href="#数据线连接" class="headerlink" title="数据线连接"></a>数据线连接</h3><pre><code>优点：不受网络限制，断网后对脚本没有任何影响。
-缺点：脸数据线，如果是脚本在Linux上面跑的话，这种方法不可行。</code></pre><h3 id="如何选取"><a href="#如何选取" class="headerlink" title="如何选取"></a>如何选取</h3><pre><code>自己本地测试，两种方式都可以
-如果用于生产，就需要看具体的情况。如果手机性能好，网络也好，不会断网，那么可以采用无线连接，Python直接在Linux服务器上面跑就可以了。如果预算有限，性能不好，手机连接的网络又有可能断，那么就采用数据线连接。目前由于用的是自己到某鱼上捡垃圾的手机，不到100，所以就采用了数据线连接。</code></pre>
+<h2 id="两种方式比较"><a href="#两种方式比较" class="headerlink" title="两种方式比较"></a>两种方式比较</h2><h3 id="无线连接"><a href="#无线连接" class="headerlink" title="无线连接"></a>无线连接</h3><p>优点：方便</p>
+<p>缺点：受到网络影响，如果手机网络断了一下，就会出现script has been destroyed。即使是后面又自动连上网络了。</p>
+<h3 id="数据线连接"><a href="#数据线连接" class="headerlink" title="数据线连接"></a>数据线连接</h3><p>优点：不受网络限制，断网后对脚本没有任何影响。</p>
+<p>缺点：脸数据线，如果是脚本在Linux上面跑的话，这种方法不可行。</p>
+<h3 id="如何选取"><a href="#如何选取" class="headerlink" title="如何选取"></a>如何选取</h3><p>自己本地测试，两种方式都可以</p>
+<p>如果用于生产，就需要看具体的情况。如果手机性能好，网络也好，不会断网，那么可以采用无线连接，Python直接在Linux服务器上面跑就可以了。如果预算有限，性能不好，手机连接的网络又有可能断，那么就采用数据线连接。目前由于用的是自己到某鱼上捡垃圾的手机，不到100，所以就采用了数据线连接。</p>
+
     </div>
 
     
