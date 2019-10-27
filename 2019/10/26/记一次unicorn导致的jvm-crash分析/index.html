@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="unicorn导致jvm crash">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-27T01:35:52.042Z">
+<meta property="og:updated_time" content="2019-10-27T07:17:22.836Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/%E8%AE%B0%E4%B8%80%E6%AC%A1unicorn%E5%AF%BC%E8%87%B4%E7%9A%84jvm-crash%E5%88%86%E6%9E%90/">
@@ -221,7 +221,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-27 09:35:52" itemprop="dateModified" datetime="2019-10-27T09:35:52+08:00">2019-10-27</time>
+                <time title="Modified: 2019-10-27 15:17:22" itemprop="dateModified" datetime="2019-10-27T15:17:22+08:00">2019-10-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,6 +262,20 @@
         <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>在使用基于unicorn的unidbg进行so调用的时候，导致线上jvm崩溃，但是在本地自己调用的时候又是正常的。</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>看了一下crash日志，可能是unicorn读取native代码触发的异常，GC完全正常，不像是内存泄漏导致的(因为unidbg存在内存泄漏)。看了一下网上同类型的jvm crash日志，虽然日志差不多，但是和自己的情况不一样。</p>
 <p>没办法，只能看看本地能不能复现这个问题。</p>
+<p>因为unidbg存在内存泄漏，所以用的spring容器管理组件。</p>
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>即使用了spring容器管理了组件，还是准备测试一下内存泄漏问题，所以本地开上服务，再开一个请求一直请求数据。跑了半天还是没有问题。于是想了一下，是不是可能在网页上访问会出现问题，所以就在网页上一直按F5.于是问题出现了。</p>
+<p>出现的问题和生产日志问题非常类似，只有异常的内存地址不一样。再多复现几次，有时候还会出现类似于attempt to call protected memory。这个异常很熟悉，在调用一些受过保护的so里面的方法，就会出现这个问题。</p>
+<p>想想不会也是受保护的方法被调用了吧，但是本地无论跑多少次也没有出现，所以排除这种问题。</p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>多次复现后，确定是unicorn访问到so错误地址导致的问题。</p>
+<p>根据这个思路，和复现错误的方式，推断应该是线程导致了unicorn访问到so错误的地址。为什么会有这个推断呢，因为开一个请求访问的时候不会出现问题，开两个线程同时访问，就会出现问题了。</p>
+<p>好了，现在来看看代码。代码采用spring容器管理组件，默认各个组件都是单例的，为了确认是多线程导致的问题，这个时候我在组件上面添加了一个注解:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在开两个线程来访问，这次一直到堆内存溢出都没有出现上面那个问题。所以确定了是多线程导致了unicorn读到错误的内存地址。</p>
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>既然组件都是单例的，看了一下代码，发现调用so的组件方法里面有很多私有成员变量，而且私有成员变量就是调用so的，但是获取so内存地址写在方法里面。所以应该就是这里导致的问题，当一个线程调用了这个方法后，当前线程还没有执行完，另外一个方法又来调用了这个方法，这个时候读取so文件的私有成员变量是同一个，但是内存地址在方法内，属于局部变量，就会出现当前一个线程计算完so地址后，调用该地址的方法还没有执行，另外一个线程就又计算了一个内存地址，这个时候就会导致上一个线程调用到下一个线程的内存地址，就导致了内存地址错误。</p>
+<p>在计算内存地址的地方加上同步后，问题就没有出现过了。这应该是一个典型的全局变量调用局部变量导致的多线程问题。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>出现这中没见过的问题，首先想问题能不能复现</p>
+<p>问题复现后就从是怎么导致问题的方便入手，再根据错误来结合代码解决</p>
 
     </div>
 
@@ -329,7 +343,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复现"><span class="nav-number">3.</span> <span class="nav-text">复现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-1"><span class="nav-number">4.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决"><span class="nav-number">5.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
