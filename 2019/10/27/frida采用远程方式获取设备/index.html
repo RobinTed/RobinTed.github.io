@@ -50,17 +50,18 @@
   };
 </script>
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="frida远程获取设备进行hook">
+<meta name="keywords" content="frida,逆向">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;26&#x2F;hello-world&#x2F;index.html">
+<meta property="og:title" content="frida采用远程方式获取设备">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="frida远程获取设备进行hook">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T13:41:44.541Z">
+<meta property="og:updated_time" content="2019-10-27T06:28:46.200Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/10/26/hello-world/">
+<link rel="canonical" href="http://yoursite.com/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/">
 
 
 <script id="page-configurations">
@@ -74,7 +75,7 @@
   };
 </script>
 
-  <title>Hello World | Robin Ted</title>
+  <title>frida采用远程方式获取设备 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -190,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/26/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/upload/french_horn.png">
@@ -203,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          frida采用远程方式获取设备
         </h1>
 
         <div class="post-meta">
@@ -214,10 +215,34 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-26 10:44:17 / Modified: 21:41:44" itemprop="dateCreated datePublished" datetime="2019-10-26T10:44:17+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-27 14:01:54 / Modified: 14:28:46" itemprop="dateCreated datePublished" datetime="2019-10-27T14:01:54+08:00">2019-10-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/" itemprop="url" rel="index">
+                    <span itemprop="name">逆向</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/frida/" itemprop="url" rel="index">
+                    <span itemprop="name">frida</span>
+                  </a>
+                </span>
             </span>
 
           
+            <div class="post-description">frida远程获取设备进行hook</div>
 
         </div>
       </header>
@@ -228,20 +253,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <h2 id="获取远程设备"><a href="#获取远程设备" class="headerlink" title="获取远程设备"></a>获取远程设备</h2><p>frida的安装和基本操作在<a href="https://robinted.github.io/2019/10/26/frida-android/" target="_blank" rel="noopener">这里</a>可以参考。</p>
+<p>frida获取设备的时候有一个方法:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida.get_remote_device(ip).attach(<span class="string">'com.android.zs'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>采用这个方法就可以在局域网中获得设备，但是注意在启动frida-server的时候要加一些参数，启动示例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frida-server -l 192.168.123.1</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>这里后面跟的地址是自己手机的地址，查看手机ip可以打开WiFi，点击后面的感叹号查看。这样就可以不用数据线连接了。</p>
+<h2 id="有线连接设备"><a href="#有线连接设备" class="headerlink" title="有线连接设备"></a>有线连接设备</h2><p>这里再写一下数据线连接，方便对比</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frida.get_usb_device().attach(<span class="string">'com.android.zs'</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: [Deployment](</p>
-
+<h2 id="两种方式比较"><a href="#两种方式比较" class="headerlink" title="两种方式比较"></a>两种方式比较</h2><h3 id="无线连接"><a href="#无线连接" class="headerlink" title="无线连接"></a>无线连接</h3><pre><code>优点：方便
+缺点：受到网络影响，如果手机网络断了一下，就会出现script has been destroyed。即使是后面又自动连上网络了。</code></pre><h3 id="数据线连接"><a href="#数据线连接" class="headerlink" title="数据线连接"></a>数据线连接</h3><pre><code>优点：不受网络限制，断网后对脚本没有任何影响。
+缺点：脸数据线，如果是脚本在Linux上面跑的话，这种方法不可行。</code></pre><h3 id="如何选取"><a href="#如何选取" class="headerlink" title="如何选取"></a>如何选取</h3><pre><code>自己本地测试，两种方式都可以
+如果用于生产，就需要看具体的情况。如果手机性能好，网络也好，不会断网，那么可以采用无线连接，Python直接在Linux服务器上面跑就可以了。如果预算有限，性能不好，手机连接的网络又有可能断，那么就采用数据线连接。目前由于用的是自己到某鱼上捡垃圾的手机，不到100，所以就采用了数据线连接。</code></pre>
     </div>
 
     
@@ -249,19 +275,23 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/frida/" rel="tag"># frida</a>
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/2019/10/26/%E8%AE%B0%E4%B8%80%E6%AC%A1unicorn%E5%AF%BC%E8%87%B4%E7%9A%84jvm-crash%E5%88%86%E6%9E%90/" rel="next" title="记一次unicorn导致的jvm crash分析">
+                  <i class="fa fa-chevron-left"></i> 记一次unicorn导致的jvm crash分析
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/10/26/frida-android/" rel="prev" title="frida_android">
-                  frida_android <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -300,7 +330,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取远程设备"><span class="nav-number">1.</span> <span class="nav-text">获取远程设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有线连接设备"><span class="nav-number">2.</span> <span class="nav-text">有线连接设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种方式比较"><span class="nav-number">3.</span> <span class="nav-text">两种方式比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无线连接"><span class="nav-number">3.1.</span> <span class="nav-text">无线连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据线连接"><span class="nav-number">3.2.</span> <span class="nav-text">数据线连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选取"><span class="nav-number">3.3.</span> <span class="nav-text">如何选取</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
