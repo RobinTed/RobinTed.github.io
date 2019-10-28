@@ -51,14 +51,14 @@
 </script>
 
   <meta name="description" content="安卓常用命令">
-<meta name="keywords" content="android,逆向,命令">
+<meta name="keywords" content="逆向,android,命令">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向安卓常用命令">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;26&#x2F;%E9%80%86%E5%90%91%E5%AE%89%E5%8D%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="安卓常用命令">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-26T14:35:28.297Z">
+<meta property="og:updated_time" content="2019-10-28T13:00:35.684Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/10/26/%E9%80%86%E5%90%91%E5%AE%89%E5%8D%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
@@ -213,10 +213,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2019-10-26 22:12:37 / Modified: 22:35:28" itemprop="dateCreated datePublished" datetime="2019-10-26T22:12:37+08:00">2019-10-26</time>
+              <time title="Created: 2019-10-26 22:12:37" itemprop="dateCreated datePublished" datetime="2019-10-26T22:12:37+08:00">2019-10-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-10-28 21:00:35" itemprop="dateModified" datetime="2019-10-28T21:00:35+08:00">2019-10-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -269,6 +275,9 @@
 <h4 id="查看安卓架构"><a href="#查看安卓架构" class="headerlink" title="查看安卓架构"></a>查看安卓架构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell getprop ro.product.cpu.abi</span><br></pre></td></tr></table></figure>
 
 <h4 id="adb远程连接"><a href="#adb远程连接" class="headerlink" title="adb远程连接"></a>adb远程连接</h4><p>1.连接数据线转发端口：adb tcpip 5555<br>2.拔线 adb connect ip:5555<br>3.adb devices测试<br>4.断开连接：adb disconnect ip:5555</p>
+<h4 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h4><p>查看所有进程，adb shell进去，直接：ps<br>查看某个进程:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps | grep 进程名</span><br></pre></td></tr></table></figure>
+
 <h4 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h4>
     </div>
 
@@ -278,8 +287,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/android/" rel="tag"># android</a>
               <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+              <a href="/tags/android/" rel="tag"># android</a>
               <a href="/tags/%E5%91%BD%E4%BB%A4/" rel="tag"># 命令</a>
           </div>
 
@@ -336,7 +345,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看当前应用进程名称"><span class="nav-number">1.</span> <span class="nav-text">查看当前应用进程名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看手机名称"><span class="nav-number">2.</span> <span class="nav-text">查看手机名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传文件"><span class="nav-number">3.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拉取文件"><span class="nav-number">4.</span> <span class="nav-text">拉取文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打印日志到屏幕"><span class="nav-number">5.</span> <span class="nav-text">打印日志到屏幕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打印日志到文件"><span class="nav-number">6.</span> <span class="nav-text">打印日志到文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看安卓架构"><span class="nav-number">7.</span> <span class="nav-text">查看安卓架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adb远程连接"><span class="nav-number">8.</span> <span class="nav-text">adb远程连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未完待续"><span class="nav-number">9.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看当前应用进程名称"><span class="nav-number">1.</span> <span class="nav-text">查看当前应用进程名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看手机名称"><span class="nav-number">2.</span> <span class="nav-text">查看手机名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传文件"><span class="nav-number">3.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拉取文件"><span class="nav-number">4.</span> <span class="nav-text">拉取文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打印日志到屏幕"><span class="nav-number">5.</span> <span class="nav-text">打印日志到屏幕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打印日志到文件"><span class="nav-number">6.</span> <span class="nav-text">打印日志到文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看安卓架构"><span class="nav-number">7.</span> <span class="nav-text">查看安卓架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adb远程连接"><span class="nav-number">8.</span> <span class="nav-text">adb远程连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看进程"><span class="nav-number">9.</span> <span class="nav-text">查看进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未完待续"><span class="nav-number">10.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
