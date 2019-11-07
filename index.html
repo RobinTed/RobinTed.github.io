@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-11-07 20:32:06 / Modified: 20:45:50" itemprop="dateCreated datePublished" datetime="2019-11-07T20:32:06+08:00">2019-11-07</time>
+              <time title="Created: 2019-11-07 20:32:06 / Modified: 20:47:17" itemprop="dateCreated datePublished" datetime="2019-11-07T20:32:06+08:00">2019-11-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,70 +243,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="python零散知识点"><a href="#python零散知识点" class="headerlink" title="python零散知识点"></a>python零散知识点</h2><h3 id="python启动另一个python"><a href="#python启动另一个python" class="headerlink" title="python启动另一个python"></a>python启动另一个python</h3><h4 id="可以用os"><a href="#可以用os" class="headerlink" title="可以用os"></a>可以用os</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.system(<span class="string">'python test.py'</span>)</span><br><span class="line">或后端启动</span><br><span class="line">os.system(<span class="string">'python test.py \ &amp;'</span>)</span><br><span class="line">或带参数</span><br><span class="line">os.system(<span class="string">"python test.py \"&#123;0&#125;\ &amp;"</span>.format(str(arg)))</span><br></pre></td></tr></table></figure>
-
-<p>用os启动的会返回0表示成功，但是用os启动的python脚本和当前脚本是同一个进程，不推荐</p>
-<h4 id="用subprocess"><a href="#用subprocess" class="headerlink" title="用subprocess"></a>用subprocess</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">arg = <span class="string">'...'</span></span><br><span class="line">proc = subprocess.Popen([<span class="string">'python'</span>, <span class="string">'test.py'</span>, arg], shell=<span class="literal">True</span>)</span><br><span class="line">pid = proc.pid</span><br><span class="line">停止</span><br><span class="line">proc.terminate()</span><br></pre></td></tr></table></figure>
-
-<p>用subprocess启动会返回一个进程对象，可以对启动的进程进行更多操作，启动后，被启动的python脚本是另一个子进程运行。推荐这种方法启动。<br>用os的方式是没办法重启被启动进程的，因为要重启的进程就是自己本身。用subprocess可以重启被启动进程，获得被启动进程proc后，可以先terminate()再Popen()</p>
-<h4 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h4><p>也可以执行其他脚本</p>
-<p>参考：<a href="https://www.journaldev.com/16140/python-system-command-os-subprocess-call" target="_blank" rel="noopener">https://www.journaldev.com/16140/python-system-command-os-subprocess-call</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">cmd = <span class="string">"git --version"</span></span><br><span class="line">returned_value = os.system(cmd)  <span class="comment"># returns the exit code</span></span><br><span class="line">print(<span class="string">'returned value:'</span>, returned_value)</span><br><span class="line">输出</span><br><span class="line">git version <span class="number">2.22</span><span class="number">.0</span>.windows<span class="number">.1</span></span><br><span class="line">returned value: <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>subprocess也有同样的功能</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">cmd = <span class="string">"git --version"</span></span><br><span class="line">returned_value = subprocess.call(cmd, shell=<span class="literal">True</span>)  <span class="comment"># returns the exit code</span></span><br><span class="line">print(<span class="string">'returned value:'</span>, returned_value)</span><br><span class="line">输出</span><br><span class="line">git version <span class="number">2.22</span><span class="number">.0</span>.windows<span class="number">.1</span></span><br><span class="line">returned value: <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>subprocess还可以保存返回值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">cmd = <span class="string">"git --version"</span></span><br><span class="line">返回字节数组</span><br><span class="line">returned_output = subprocess.check_output(cmd)</span><br><span class="line">用 decode() 将字节数组转化为字符串</span><br><span class="line">print(<span class="string">'Current version is:'</span>, returned_output.decode(<span class="string">"utf-8"</span>))</span><br><span class="line">输出</span><br><span class="line">Current version <span class="keyword">is</span>: git version <span class="number">2.22</span><span class="number">.0</span>.windows<span class="number">.1</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>int转字符串：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str(int)</span><br></pre></td></tr></table></figure>
-
-<p>注意不能像Java一样，字符串加数字，会报错</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'hello'</span>+<span class="number">123</span>)</span><br></pre></td></tr></table></figure>
-
-<p>报错：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'hello'</span>+<span class="number">123</span>)</span><br><span class="line">TypeError: can only concatenate str (<span class="keyword">not</span> <span class="string">"int"</span>) to str</span><br></pre></td></tr></table></figure>
-
-<p>应该这样写：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'hello'</span>+str(<span class="number">123</span>))</span><br></pre></td></tr></table></figure>
-
-<h3 id="python异常"><a href="#python异常" class="headerlink" title="python异常"></a>python异常</h3><p>python异常代码和Java类似<br>参考：<a href="https://blog.csdn.net/zong596568821xp/article/details/78180229" target="_blank" rel="noopener">https://blog.csdn.net/zong596568821xp/article/details/78180229</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	可能异常语句块</span><br><span class="line"><span class="keyword">except</span> [ExceptionType]:</span><br><span class="line">	捕获制定异常</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">	捕获没有指定类型的任意异常</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">	无论异常是否发生，都会执行的语句块</span><br></pre></td></tr></table></figure>
-<p>ExceptionType：BaseException所有异常基类，Exception常见错误基类。例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	requests.get(<span class="string">'http://localhost:8080'</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">	print(e)</span><br></pre></td></tr></table></figure>
-
-<h3 id="python请求链接-requests"><a href="#python请求链接-requests" class="headerlink" title="python请求链接:requests"></a>python请求链接:requests</h3><p>参考：<a href="https://realpython.com/python-requests/" target="_blank" rel="noopener">https://realpython.com/python-requests/</a><br>参见翻译：</p>
-<h3 id="python-空代码块："><a href="#python-空代码块：" class="headerlink" title="python 空代码块："></a>python 空代码块：</h3><p>直接写pass就可以了</p>
-<h3 id="python日志"><a href="#python日志" class="headerlink" title="python日志"></a>python日志</h3><p>参考 <a href="https://realpython.com/python-logging/" target="_blank" rel="noopener">https://realpython.com/python-logging/</a><br>参见翻译</p>
-<h3 id="python-virtualenv"><a href="#python-virtualenv" class="headerlink" title="python virtualenv"></a>python virtualenv</h3><p>python虚拟环境非常实用</p>
-<h4 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h4><p>当前环境是centos7云主机，只有python2.7，先安装python3.6</p>
-<p>配置ius源：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install https://centos7.iuscommunity.org/ius-release.rpm -y</span><br></pre></td></tr></table></figure>
-
-<p>安装python3.6</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python36u -y</span><br></pre></td></tr></table></figure>
-
-<p>-y是全部都输入yes<br>一般安装好后，在/bin/下面就已经有python3，python3.6和python3.6m了，如果没有，可以创建软连接：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /user/bin/python3.6 /bin/python3</span><br></pre></td></tr></table></figure>
-
-<p>安装pip3：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install python36u-pip -y</span><br><span class="line">升级</span><br><span class="line">pip3 install --upgrade pip</span><br></pre></td></tr></table></figure>
-
-<p>如果是Windows：</p>
-<p>参考：<a href="https://blog.csdn.net/sinat_32873711/article/details/78740146" target="_blank" rel="noopener">https://blog.csdn.net/sinat_32873711/article/details/78740146</a></p>
-<p>到 <a href="https://pypi.org/project/pip/#files" target="_blank" rel="noopener">https://pypi.org/project/pip/#files</a> 下载.tar.gz文件<br>进入解压文件，安装命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
-<h4 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h4><p>输入命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
-
-<h4 id="使用virualenv"><a href="#使用virualenv" class="headerlink" title="使用virualenv"></a>使用virualenv</h4><p>一般可以专门创建一个便于识别的目录用来装所有创建的虚拟环境，比如：virtualenvproj<br>创建虚拟环境：<br>Windows和centos一样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env</span><br></pre></td></tr></table></figure>
-
-<p>启动虚拟环境：</p>
-<p>创建成功后，Windows下面是进入Script目录，输入：activate即可进入虚拟环境<br>centos进入虚拟环境是进入env目录里面的bin目录，然后输入：source activate，即可进入虚拟环境</p>
-<p>退出虚拟环境：deactivate</p>
-
+          python日常注意点
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
