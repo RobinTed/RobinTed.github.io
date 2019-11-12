@@ -50,14 +50,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Robin Ted">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;%E6%8A%80%E6%9C%AF&#x2F;%E9%80%86%E5%90%91&#x2F;index.html">
+  <meta name="description" content="python requests翻译">
+<meta name="keywords" content="Python,翻译,requests">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python requests库(翻译)">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;07&#x2F;python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
+<meta property="og:description" content="python requests翻译">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-12T11:21:08.830Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/">
+<link rel="canonical" href="http://yoursite.com/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
 
 
 <script id="page-configurations">
@@ -65,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Category: 逆向 | Robin Ted</title>
+  <title>python requests库(翻译) | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -182,90 +186,124 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">逆向
-          <small>Category</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/french_horn.png">
+      <meta itemprop="name" content="Robin Ted">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin Ted">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python requests库(翻译)
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-07 20:59:08" itemprop="dateCreated datePublished" datetime="2019-11-07T20:59:08+08:00">2019-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-12 19:21:08" itemprop="dateModified" datetime="2019-11-12T19:21:08+08:00">2019-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">python requests翻译</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+        <h2 id="开始使用requests"><a href="#开始使用requests" class="headerlink" title="开始使用requests"></a>开始使用requests</h2><p>安装requests库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>如果你用的是pipenv管理Python库，可以使用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pipenv install requests</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-27T14:01:54+08:00"
-              content="2019-10-27">
-          10-27
-        </time>
-      </div>
+<p>安装好requests后，就可以在应用里面使用了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/" itemprop="url">
-            <span itemprop="name">frida采用远程方式获取设备</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-26T22:12:37+08:00"
-              content="2019-10-26">
-          10-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/26/%E9%80%86%E5%90%91%E5%AE%89%E5%8D%93%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" itemprop="url">
-            <span itemprop="name">逆向安卓常用命令</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-26T14:58:25+08:00"
-              content="2019-10-26">
-          10-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/26/frida-android/" itemprop="url">
-            <span itemprop="name">frida_android</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+<p>现在你所有都设置好了，下面我们开始使用requests吧。首先我们先学习GET请求</p>
+<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><p>HTTP请求方法有GET和POST，取决于发出HTTP请求时要执行的方式。除了GET和POST，<br>还有其他几种方式，待会在后面的教程总会用到。</p>
+<p>最常见的HTTP请求方式之一就是GET请求。</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+              <a href="/tags/requests/" rel="tag"># requests</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="next" title="python零散知识点">
+                  <i class="fa fa-chevron-left"></i> python零散知识点
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/" rel="prev" title="java加载JavaScript">
+                  java加载JavaScript <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -294,6 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开始使用requests"><span class="nav-number">1.</span> <span class="nav-text">开始使用requests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET请求"><span class="nav-number">2.</span> <span class="nav-text">GET请求</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

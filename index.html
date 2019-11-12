@@ -187,6 +187,206 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/french_horn.png">
+      <meta itemprop="name" content="Robin Ted">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin Ted">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/" class="post-title-link" itemprop="url">java加载JavaScript</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-12 19:17:09 / Modified: 19:19:13" itemprop="dateCreated datePublished" datetime="2019-11-12T19:17:09+08:00">2019-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>java加载javascript</p>
+<h2 id="直接加载"><a href="#直接加载" class="headerlink" title="直接加载"></a>直接加载</h2><p>推荐的是直接加载这种方式。</p>
+<p>初始化一个引擎：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ScriptEngine scriptEngine = <span class="keyword">new</span> ScriptEngineManager().getEngineByName(<span class="string">"javascript"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果是Java8的话，可以使用nashorn,但是在Java11中遗弃了 Nashorn JavaScript engine：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ScriptEngine scriptEngine = <span class="keyword">new</span> ScriptEngineManager().getEngineByName(<span class="string">"nashorn"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>加载要执行的js脚本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scriptEngine.eval(<span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"XX1"</span>)));</span><br><span class="line">scriptEngine.eval(<span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"XX2"</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>scriptEngine可以加载多个js脚本，当然也可以加载自己手动写的脚本。比如某个最常用的js加密脚本，如果直接加载会缺少navigator和window，<br>这两个都是浏览器元素。此时我们可以通过在脚本里面添加这两个元素，也可以通过 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">scriptEngine.eval(“<span class="keyword">var</span> navigator = &#123;&#125;; ”) </span><br><span class="line">``` </span><br><span class="line">添加，效果一样。</span><br><span class="line"></span><br><span class="line">执行某个js方法也可以通过scriptEngine.eval，比如执行加法：</span><br><span class="line">``` java</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	scriptEngine.eval(<span class="string">"var result = add("</span>+a+<span class="string">","</span>+b+<span class="string">")"</span>);</span><br><span class="line">	<span class="keyword">return</span> scriptEngine.get(<span class="string">"result"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	scriptEngine.eval(<span class="string">"var a = \""</span> + a + <span class="string">"\";\n"</span> +</span><br><span class="line">                        <span class="string">"var b = \""</span> + b + <span class="string">"\";\n"</span> +</span><br><span class="line">                        <span class="string">"var result = add(a, b);"</span>);</span><br><span class="line">	<span class="keyword">return</span> scriptEngine.get(<span class="string">"result"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>建议采用第二种方式，虽然麻烦，但是出现问题概率小，因为第一种很可能会提醒Missing space after numeric literal类似的错误，或者变量未声明，<br>或者由于某个字符串有特殊字符导致的各种错误。</p>
+<p>scriptEngine除了get方法可以获取变量值，还有一个put方法可以设置变量值，可以自行研究。注意一点的就是put方法不能代替eval方法传加载js时需要的变量，比如 navigator = {};</p>
+<p>获取到值后是object类型的，如果是Java8，可以强转为ScriptObjectMirror，获取里面的值比较方便。</p>
+<p>因为加载js比较耗时，所以可以将加载js的方法都声明为类变量。</p>
+<p>首先</p>
+<h2 id="接口加载"><a href="#接口加载" class="headerlink" title="接口加载"></a>接口加载</h2><p>接口加载就是声明一个接口，方法和加载的js方法名一样，强转scriptEngine为Invocable，然后调用getInterface(interface.class)方法，再调用接口方法就达到调用js的效果。<br>不怎么用，可以自行深入研究。</p>
+<h2 id="浏览器加载"><a href="#浏览器加载" class="headerlink" title="浏览器加载"></a>浏览器加载</h2><p>有时候，加载的javascript需要很多浏览器元素，没办法的情况，就用这种方式，比如某度的登录页面加密。</p>
+<p>说到浏览器，前面已经说过selenium和htmlunit，因为selenium太重，所以采用htmlunit比较好。</p>
+<p>1.既然是浏览器，那么就需要一个页面，首先自己新建一个html文件，作为结果返回页面。</p>
+<p>2.在页面上随便声明一个展示结果的标签，比如p标签。</p>
+<p>3.在页面声明一个js方法functionX，用来接收传递的参数。可能会用到：document.location.toString();</p>
+<p>4.再根据获取到的参数在html页面调用js，可以从外部引入，也可以嵌在html的</script>里面，根据情况。</p>
+<p>5.最后给p标签赋值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"p标签id"</span>).innerHTML = functionX();</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最后一种虽然通用，但是涉及到浏览器，那么资源消耗和加载速度就会没有第一种好。所以首选还是第一种。</p>
+<p>如果用到了加载javascript，一定要注意内存泄漏的问题。</p>
+<p>下一篇有时间写一下selenium hub和docker结合使用。</p>
+<p>附件一个常用加密js：<a href="https://npmcdn.com/jsencrypt@2.3.1/bin/jsencrypt.js" target="_blank" rel="noopener">https://npmcdn.com/jsencrypt@2.3.1/bin/jsencrypt.js</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/french_horn.png">
+      <meta itemprop="name" content="Robin Ted">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin Ted">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/" class="post-title-link" itemprop="url">python requests库(翻译)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-07 20:59:08" itemprop="dateCreated datePublished" datetime="2019-11-07T20:59:08+08:00">2019-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-12 19:21:08" itemprop="dateModified" datetime="2019-11-12T19:21:08+08:00">2019-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          python requests翻译
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -893,18 +1093,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
