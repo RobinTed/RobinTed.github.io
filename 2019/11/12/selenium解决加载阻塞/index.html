@@ -50,18 +50,18 @@
   };
 </script>
 
-  <meta name="description" content="spring 的beanPostProcessor调用的顺序">
-<meta name="keywords" content="spring">
+  <meta name="description" content="selenium加载策略和等待策略解决加载阻塞">
+<meta name="keywords" content="selenium">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring bean后置处理器调用顺序">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;index.html">
+<meta property="og:title" content="selenium解决加载阻塞">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
-<meta property="og:description" content="spring 的beanPostProcessor调用的顺序">
+<meta property="og:description" content="selenium加载策略和等待策略解决加载阻塞">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-27T07:24:09.042Z">
+<meta property="og:updated_time" content="2019-11-12T13:13:29.720Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/">
+<link rel="canonical" href="http://yoursite.com/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>spring bean后置处理器调用顺序 | Robin Ted</title>
+  <title>selenium解决加载阻塞 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/upload/french_horn.png">
@@ -204,7 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          spring bean后置处理器调用顺序
+          selenium解决加载阻塞
         </h1>
 
         <div class="post-meta">
@@ -215,7 +215,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-10-27 15:21:42 / Modified: 15:24:09" itemprop="dateCreated datePublished" datetime="2019-10-27T15:21:42+08:00">2019-10-27</time>
+              <time title="Created: 2019-11-12 21:11:57 / Modified: 21:13:29" itemprop="dateCreated datePublished" datetime="2019-11-12T21:11:57+08:00">2019-11-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,14 +229,14 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium</span>
                   </a>
                 </span>
             </span>
 
           
-            <div class="post-description">spring 的beanPostProcessor调用的顺序</div>
+            <div class="post-description">selenium加载策略和等待策略解决加载阻塞</div>
 
         </div>
       </header>
@@ -247,7 +247,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h2 id="selenium加载策略"><a href="#selenium加载策略" class="headerlink" title="selenium加载策略"></a>selenium加载策略</h2><p>使用selenium加载网页，很可能会遇到网页的主要元素已经加载完全，但是浏览器还在加载，一直转圈的情况，也就是driver.get(“XXX”)加载阻塞了。<br>这个时候我们需要做的是停止加载。</p>
+<p>selenium可以设置加载策略，结合等待来达到这个目的。</p>
+<h3 id="设置加载策略"><a href="#设置加载策略" class="headerlink" title="设置加载策略"></a>设置加载策略</h3><p>在版本3.12.0以后的selenium有一个类:PageLoadStrategy。这个类可以设置浏览器的加载策略。</p>
+<p>里面有三个枚举类型:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NONE(<span class="string">"none"</span>),</span><br><span class="line">EAGER(<span class="string">"eager"</span>),</span><br><span class="line">NORMAL(<span class="string">"normal"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>none:在整个页面html接收完成，即刻返回，不等待解析</p>
+<p>eager:html页面接收完成，然后解析完成，即刻返回，不等待页面其他内容加载</p>
+<p>normal:等待整个页面内容和资源(js等)加载解析完成，然后返回。selenium默认是这个加载策略。</p>
+<p>AbstractDriverOptions有一个方法：setPageLoadStrategy，在这个方法里可以设置加载策略。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">options.setPageLoadStrategy(PageLoadStrategy.NONE);</span><br></pre></td></tr></table></figure>
+
+<p>点进去看：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setCapability(<span class="string">"pageLoadStrategy"</span>, Objects.requireNonNull(strategy, <span class="string">"Page load strategy must not be null"</span>));</span><br></pre></td></tr></table></figure>
+
+<p>是MutableCapabilities设置的Capability属性。当然也可以自己手动设置，也就是3.12.0之前的方法可以这样设置，直接通过DesiredCapabilities<br>设置，3.12之前没有MutableCapabilities，之后才增加，作为DesiredCapabilities的父类，效果一样，可以都用DesiredCapabilities。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">capabilities.setCapability(<span class="string">"pageLoadStrategy"</span>, <span class="string">"none"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>和上面使用PageLoadStrategy是一样的效果。</p>
+<h2 id="等待策略"><a href="#等待策略" class="headerlink" title="等待策略"></a>等待策略</h2><p>1.最直接的方法：让整个线程都等待</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.sleep(XXX);</span><br></pre></td></tr></table></figure>
+
+<p>2.设置一个最长等待时间，如果某个元素满足了条件就不用等待了。显示等待</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WebDriverWait wait = <span class="keyword">new</span> WebDriverWait(driver, <span class="number">10</span>);</span><br><span class="line">driver.get(<span class="string">"XXX"</span>);</span><br><span class="line">wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id(<span class="string">"XXX"</span>), <span class="string">"XXX"</span>));</span><br></pre></td></tr></table></figure>
+<p>这个时候driver.get(“XXX”);是不会阻塞的，是在wait.until()这一步阻塞。</p>
+<p>WebDriverWait继承了FluentWait<WebDriver>。WebDriverWait的构造函数里面，默认是传给FluentWait每500毫秒检测一次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebDriverWait</span><span class="params">(WebDriver driver, <span class="keyword">long</span> timeOutInSeconds)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(driver, Clock.systemDefaultZone(), Sleeper.SYSTEM_SLEEPER, timeOutInSeconds, <span class="number">500L</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然也有自定义检测时间的构造函数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebDriverWait</span><span class="params">(WebDriver driver, <span class="keyword">long</span> timeOutInSeconds, <span class="keyword">long</span> sleepInMillis)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">this</span>(driver, Clock.systemDefaultZone(), Sleeper.SYSTEM_SLEEPER, timeOutInSeconds, sleepInMillis);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.隐式等待<br>如果一个元素没有加载出来，就等待，在设定时间范围内，如果元素加载出来就不再等待了。也就是在抛出：No Such Element Exception之前等待。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.manage().timeouts().implicitlyWait(TimeOut, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
+<p>这个设置会在真个driver生命周期起作用，直到driver.close()。<br>这个设置的优点就是可以一处设置，处处可用。缺点是只需要元素可以located，不管是否可用。</p>
+<h2 id="解决加载阻塞问题"><a href="#解决加载阻塞问题" class="headerlink" title="解决加载阻塞问题"></a>解决加载阻塞问题</h2><p>说了上面两个方法，想必已经有了解决思路了。</p>
+<p>案例：</p>
+<p>比如现在我们加载一个网站，我们只需要这个网站上面的滑动验证码加载出来就可以了。但是这个网站上面的元素很多。<br>这个时候就可以使用加载策略，加等待策略。只要滑动验证码加载出来，并且可用，即刻停止加载。</p>
+<p>所以加载策略使用：none<br>等待策略采用显示等待，等到滑动验证码的元素可press，即：ExpectedConditions.textToBePresentInElementLocated。<br>停止加载可以用一个javascript解决：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.executeScript(<span class="string">"window.stop();"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>下一篇说说selenium option的常用设置</p>
+
     </div>
 
     
@@ -256,23 +298,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/selenium/" rel="tag"># selenium</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/" rel="next" title="frida采用远程方式获取设备">
-                  <i class="fa fa-chevron-left"></i> frida采用远程方式获取设备
+                <a href="/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" rel="next" title="frida常见错误">
+                  <i class="fa fa-chevron-left"></i> frida常见错误
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/10/29/frida%E4%B9%8BRPC/" rel="prev" title="frida之RPC">
-                  frida之RPC <i class="fa fa-chevron-right"></i>
+                <a href="/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/" rel="prev" title="获取cookie的另类方法">
+                  获取cookie的另类方法 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -312,6 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#selenium加载策略"><span class="nav-number">1.</span> <span class="nav-text">selenium加载策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置加载策略"><span class="nav-number">1.1.</span> <span class="nav-text">设置加载策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等待策略"><span class="nav-number">2.</span> <span class="nav-text">等待策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决加载阻塞问题"><span class="nav-number">3.</span> <span class="nav-text">解决加载阻塞问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

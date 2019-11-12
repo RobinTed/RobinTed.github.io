@@ -50,14 +50,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Robin Ted">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;%E6%8A%80%E6%9C%AF&#x2F;%E7%BF%BB%E8%AF%91&#x2F;index.html">
+  <meta name="description" content="通过浏览器获取cookie再赋值">
+<meta name="keywords" content="web抓取,cookie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="获取cookie的另类方法">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
+<meta property="og:description" content="通过浏览器获取cookie再赋值">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-12T13:16:21.389Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/%E7%BF%BB%E8%AF%91/">
+<link rel="canonical" href="http://yoursite.com/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -65,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Category: 翻译 | Robin Ted</title>
+  <title>获取cookie的另类方法 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -182,50 +186,117 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">翻译
-          <small>Category</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/french_horn.png">
+      <meta itemprop="name" content="Robin Ted">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin Ted">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          获取cookie的另类方法
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-11-12 21:15:04 / Modified: 21:16:21" itemprop="dateCreated datePublished" datetime="2019-11-12T21:15:04+08:00">2019-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
+                    <span itemprop="name">selenium</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">通过浏览器获取cookie再赋值</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>解决网页cookie获取难的问题</p>
+<p>标题党，只能解决部分，当没有思路的时候可以考虑一下下面的方法</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>当手动去请求链接获取cookie的时候，很可能会漏掉某个cookie，或者网页根本不让单个链接获取到某些cookie。</p>
+<p>这个时候就可以换一个角度思考问题，既然请求链接获取不到某个cookie，但是网页抓包有某个cookie，那么在请求的时候<br>我们也可以模拟网页请求，然后获取cookie，设置cookie不就可以了吗。根据这个思路有两种办法。</p>
+<h2 id="selenium"><a href="#selenium" class="headerlink" title="selenium"></a>selenium</h2><p>首先请出浏览器，实际上selenium是一个非常重量级的工具，能不用则不用，要用也要配合docker和selenium hub一起使用。</p>
+<p>可以先使用selenium请求要加载的网页，获取到cookie，然后使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.manage().getCookies().forEach(cookie -&gt; System.out.println(cookie.getName()+<span class="string">" "</span>+cookie.getValue()+<span class="string">" "</span>+cookie.getDomain()+<span class="string">" "</span>+cookie.getPath()+<span class="string">" "</span>+cookie.getExpiry()));</span><br></pre></td></tr></table></figure>
+
+<p>获取到driver的cookie，再设置到自己的抓取类里面去。<br>需要注意一点的就是selenium driver不能手动设置cookie进去，会报错，这是一个bug，不知道有没有修复，视你现在的情况而定，自己测试。这里只做一个提醒。</p>
+<h2 id="htmlunit"><a href="#htmlunit" class="headerlink" title="htmlunit"></a>htmlunit</h2><p>用这个也可以，htmlunit是一个比较轻量级的请求网页的框架，看不到网页，可以自己请求出来后，下载下来，自己分析网页标签。</p>
+<p>和上面一样，请求出来设置cookie：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webClient.getCookieManager().getCookies().forEach(cookie -&gt; System.out.println(cookie.getName()+<span class="string">" "</span>+cookie.getValue()+<span class="string">" "</span>+cookie.getDomain()+<span class="string">" "</span>+cookie.getPath()+<span class="string">" "</span>+cookie.getExpires()));</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这只是一个备胎，最好还是自己请求连接，设置cookie。</p>
+<p>下一篇说说加载javascript的几种方式。网页加密常常就在javascript中。</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-07T20:59:08+08:00"
-              content="2019-11-07">
-          11-07
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web%E6%8A%93%E5%8F%96/" rel="tag"># web抓取</a>
+              <a href="/tags/cookie/" rel="tag"># cookie</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/" itemprop="url">
-            <span itemprop="name">python requests库(翻译)</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/" rel="next" title="selenium解决加载阻塞">
+                  <i class="fa fa-chevron-left"></i> selenium解决加载阻塞
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -254,6 +325,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#selenium"><span class="nav-number">2.</span> <span class="nav-text">selenium</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#htmlunit"><span class="nav-number">3.</span> <span class="nav-text">htmlunit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
