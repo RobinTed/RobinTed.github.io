@@ -50,28 +50,32 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Robin Ted">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="前期准备为了方便测试和耗时计算，写一个接口和切面来实现。 Sort接口： 12345package datastructure.sort;public interface Sort &amp;#123;    void doSort(int[] array);&amp;#125;  抽象类实现： 123456789101112131415package datastructure.sort;&#x2F;** * @auth">
+<meta name="keywords" content="算法,排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最易懂的排序算法实现--java语言">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;20&#x2F;%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
+<meta property="og:description" content="前期准备为了方便测试和耗时计算，写一个接口和切面来实现。 Sort接口： 12345package datastructure.sort;public interface Sort &amp;#123;    void doSort(int[] array);&amp;#125;  抽象类实现： 123456789101112131415package datastructure.sort;&#x2F;** * @auth">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-20T14:46:53.895Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Robin Ted</title>
+  <title>最易懂的排序算法实现--java语言 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -184,10 +188,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -201,8 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">最易懂的排序算法实现--java语言</a>
+          最易懂的排序算法实现--java语言
         </h1>
 
         <div class="post-meta">
@@ -244,7 +247,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>为了方便测试和耗时计算，写一个接口和切面来实现。</p>
+        <h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>为了方便测试和耗时计算，写一个接口和切面来实现。</p>
 <p>Sort接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> datastructure.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSort</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -264,754 +267,40 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> datastructure.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationConfigApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Random random = <span class="keyword">new</span> Random();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_LENGTH = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ARRAY_BOUND = <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[ARRAY_LENGTH];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig.class);</span><br><span class="line">        Map&lt;String, Sort&gt; sortMap = applicationContext.getBeansOfType(Sort.class);</span><br><span class="line">        sortMap.forEach((k, v) -&gt; &#123;</span><br><span class="line">            System.out.print(k + <span class="string">"  "</span>);</span><br><span class="line">            v.doSort(getArray());</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getArray() &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ARRAY_LENGTH; i++) &#123;</span><br><span class="line">            array[i] = random.nextInt(ARRAY_BOUND);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag"># 排序</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/" class="post-title-link" itemprop="url">提取安卓so</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-13 21:49:13 / Modified: 21:50:21" itemprop="dateCreated datePublished" datetime="2019-11-13T21:49:13+08:00">2019-11-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/" itemprop="url" rel="index">
-                    <span itemprop="name">逆向</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          提取安卓so文件方法步骤
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/" rel="next" title="提取安卓so">
+                  <i class="fa fa-chevron-left"></i> 提取安卓so
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+            <span class="post-nav-divider"></span>
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/" class="post-title-link" itemprop="url">动态生成HTML</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-13 21:47:06 / Modified: 21:48:41" itemprop="dateCreated datePublished" datetime="2019-11-13T21:47:06+08:00">2019-11-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          动态生成HTML页面
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-prev post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+          </div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">获取cookie的另类方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 21:15:04 / Modified: 21:16:21" itemprop="dateCreated datePublished" datetime="2019-11-12T21:15:04+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          通过浏览器获取cookie再赋值
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/" class="post-title-link" itemprop="url">selenium解决加载阻塞</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 21:11:57 / Modified: 21:13:29" itemprop="dateCreated datePublished" datetime="2019-11-12T21:11:57+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          selenium加载策略和等待策略解决加载阻塞
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">frida常见错误</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 20:52:06 / Modified: 20:54:38" itemprop="dateCreated datePublished" datetime="2019-11-12T20:52:06+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/frida/" itemprop="url" rel="index">
-                    <span itemprop="name">frida</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          frida常见错误及解决方法
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/" class="post-title-link" itemprop="url">java加载JavaScript</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 19:17:09 / Modified: 20:48:07" itemprop="dateCreated datePublished" datetime="2019-11-12T19:17:09+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          java加载JavaScript的几种方式
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/java%E5%8A%A0%E8%BD%BDJavaScript/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/" class="post-title-link" itemprop="url">python requests库(翻译)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-07 20:59:08" itemprop="dateCreated datePublished" datetime="2019-11-07T20:59:08+08:00">2019-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-11-12 19:21:08" itemprop="dateModified" datetime="2019-11-12T19:21:08+08:00">2019-11-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
-                    <span itemprop="name">翻译</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          python requests翻译
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/07/python-requests%E5%BA%93-%E7%BF%BB%E8%AF%91/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/" class="post-title-link" itemprop="url">python零散知识点</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-07 20:32:06 / Modified: 20:49:21" itemprop="dateCreated datePublished" datetime="2019-11-07T20:32:06+08:00">2019-11-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          python日常注意点
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/07/python%E9%9B%B6%E6%95%A3%E7%9F%A5%E8%AF%86%E7%82%B9/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/29/frida%E4%B9%8BRPC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/29/frida%E4%B9%8BRPC/" class="post-title-link" itemprop="url">frida之RPC</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-10-29 19:30:04" itemprop="dateCreated datePublished" datetime="2019-10-29T19:30:04+08:00">2019-10-29</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1040,6 +329,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前期准备"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">2.</span> <span class="nav-text">冒泡排序</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
