@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="从源码分析如何自定义注解扫描">
+<meta name="keywords" content="spring,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义注解扫描">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;23&#x2F;%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F&#x2F;index.html">
+<meta property="og:site_name" content="Robin Ted">
+<meta property="og:description" content="从源码分析如何自定义注解扫描">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-23T11:00:21.369Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>自定义注解扫描 | Robin Ted</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
+    <script>
+      var host = window.location.hostname;
+      if (host !== "localhost" || !true) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-150944038-1');
+      }
+    </script>
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Robin Ted</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">mytanlord@gmail.com</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/upload/french_horn.png">
+      <meta itemprop="name" content="Robin Ted">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Robin Ted">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          自定义注解扫描
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-23 18:55:50 / Modified: 19:00:21" itemprop="dateCreated datePublished" datetime="2019-12-23T18:55:50+08:00">2019-12-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/spring/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
+                    <span itemprop="name">源码</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">从源码分析如何自定义注解扫描</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在上一篇算法中，我们自定义了一个组件扫描注解：@Practice：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> datastructure.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> RobinTed</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Practice &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用来和其他类的spring自带的注解区分，比如@Component。让@Practice扫描到很简单，配置类上面配一下就可以，怎么让value起作用呢？下面就从源码角度讲一下。</p>
+<h2 id="主配置类"><a href="#主配置类" class="headerlink" title="主配置类"></a>主配置类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> datastructure.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ComponentScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.EnableAspectJAutoProxy;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.FilterType;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> RobinTed</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(value = <span class="string">"datastructure.sort"</span></span><br><span class="line">        , includeFilters = &#123;<span class="meta">@ComponentScan</span>.Filter(type = FilterType.ANNOTATION, value = Practice.class)&#125;</span><br><span class="line">        , useDefaultFilters = <span class="keyword">false</span></span><br><span class="line">)</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果还想让@Component这类的注解起作用，就不要添加 useDefaultFilters = false这一句话。</p>
+<h2 id="从源码分析"><a href="#从源码分析" class="headerlink" title="从源码分析"></a>从源码分析</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>既然我们是想然@Practice的value和@Component的value一样起作用，那么就应该先分析@Component 的value是怎么起作用的。</p>
+<p>点到@Component源码看注释：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Indicates that an annotated class is a <span class="string">"component"</span>.</span><br><span class="line">Such classes are considered as candidates <span class="keyword">for</span> auto-detection</span><br><span class="line">when using annotation-based configuration and classpath scanning.</span><br></pre></td></tr></table></figure>
+
+<p>关键是最后一个and，基于注解配置和类路径扫描。在上面的主配置文件中有着两个注解：@Configuration和@ComponentScan。</p>
+<p>先看@ComponentScan，点进去，看到最后一句注释：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">See &#123;@link Configuration @Configuration&#125;<span class="string">'s Javadoc for usage examples.</span></span><br></pre></td></tr></table></figure>
+
+<p>还是让我们看@Configuration的解释，点进去@Configuration。先猜一下，依照spring的惯例，一般重要的注解，都会有一个后置处理器来处理。往上翻，翻到第80行，就有这个提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In the example above, &#123;@code &lt;context:annotation-config/&gt;&#125; is required <span class="keyword">in</span> order to</span><br><span class="line"><span class="built_in">enable</span> &#123;@link ConfigurationClassPostProcessor&#125; and other annotation-related</span><br><span class="line">post processors that facilitate handling &#123;@code @Configuration&#125; classes.</span><br></pre></td></tr></table></figure>
+
+<p>现在点进去ConfigurationClassPostProcessor这个后置处理器，在这个类里面搜索一下scan这个关键词，看看有没有。</p>
+<p>搜索到的第一个地方是一个私有成员变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> BeanNameGenerator componentScanBeanNameGenerator = <span class="keyword">new</span> AnnotationBeanNameGenerator();</span><br></pre></td></tr></table></figure>
+
+<p>点进去AnnotationBeanNameGenerator，看一下注释，清楚的写着做用于这几个注解：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@see org.springframework.stereotype.Component<span class="comment">#value()</span></span><br><span class="line">@see org.springframework.stereotype.Repository<span class="comment">#value()</span></span><br><span class="line">@see org.springframework.stereotype.Service<span class="comment">#value()</span></span><br><span class="line">@see org.springframework.stereotype.Controller<span class="comment">#value()</span></span><br></pre></td></tr></table></figure>
+
+<p>那么我们就来看一下具体是怎么错用的。<br>来到第一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">generateBeanName</span><span class="params">(BeanDefinition definition, BeanDefinitionRegistry registry)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (definition <span class="keyword">instanceof</span> AnnotatedBeanDefinition) &#123;</span><br><span class="line">		String beanName = determineBeanNameFromAnnotation((AnnotatedBeanDefinition) definition);</span><br><span class="line">		<span class="keyword">if</span> (StringUtils.hasText(beanName)) &#123;</span><br><span class="line">			<span class="comment">// Explicit bean name found.</span></span><br><span class="line">			<span class="keyword">return</span> beanName;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// Fallback: generate a unique default bean name.</span></span><br><span class="line">	<span class="keyword">return</span> buildDefaultBeanName(definition, registry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在第三行打一个断点。进入方法，来到第二个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> String <span class="title">determineBeanNameFromAnnotation</span><span class="params">(AnnotatedBeanDefinition annotatedDef)</span> </span>&#123;</span><br><span class="line">		AnnotationMetadata amd = annotatedDef.getMetadata();</span><br><span class="line">		Set&lt;String&gt; types = amd.getAnnotationTypes();</span><br><span class="line">		String beanName = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">for</span> (String type : types) &#123;</span><br><span class="line">			AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(amd, type);</span><br><span class="line">			<span class="keyword">if</span> (attributes != <span class="keyword">null</span> &amp;&amp; isStereotypeWithNameValue(type, amd.getMetaAnnotationTypes(type), attributes)) &#123;</span><br><span class="line">				Object value = attributes.get(<span class="string">"value"</span>);</span><br><span class="line">				<span class="keyword">if</span> (value <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">					String strVal = (String) value;</span><br><span class="line">					<span class="keyword">if</span> (StringUtils.hasLength(strVal)) &#123;</span><br><span class="line">						<span class="keyword">if</span> (beanName != <span class="keyword">null</span> &amp;&amp; !strVal.equals(beanName)) &#123;</span><br><span class="line">							<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Stereotype annotations suggest inconsistent "</span> +</span><br><span class="line">									<span class="string">"component names: '"</span> + beanName + <span class="string">"' versus '"</span> + strVal + <span class="string">"'"</span>);</span><br><span class="line">						&#125;</span><br><span class="line">						beanName = strVal;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> beanName;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在第七行打一个断点，进入下一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isStereotypeWithNameValue</span><span class="params">(String annotationType,</span></span></span><br><span class="line"><span class="function"><span class="params">		Set&lt;String&gt; metaAnnotationTypes, @Nullable Map&lt;String, Object&gt; attributes)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">boolean</span> isStereotype = annotationType.equals(COMPONENT_ANNOTATION_CLASSNAME) ||</span><br><span class="line">			metaAnnotationTypes.contains(COMPONENT_ANNOTATION_CLASSNAME) ||</span><br><span class="line">			annotationType.equals(<span class="string">"javax.annotation.ManagedBean"</span>) ||</span><br><span class="line">			annotationType.equals(<span class="string">"javax.inject.Named"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> (isStereotype &amp;&amp; attributes != <span class="keyword">null</span> &amp;&amp; attributes.containsKey(<span class="string">"value"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到这个方法的注解上面写着：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Check whether the given annotation is a stereotype that is allowed</span><br><span class="line">to suggest a component name through its annotation &#123;@code value()&#125;.</span><br></pre></td></tr></table></figure>
+
+<p>是否用这个注解的value值作为组件的名字。所以这里是我们的目标方法。<br>有没有注意到，这个方法是protected，所以spring早就知道这个方法可能会被重写，这就是spring的强大。</p>
+<h3 id="自定义BeanNameGenerator"><a href="#自定义BeanNameGenerator" class="headerlink" title="自定义BeanNameGenerator"></a>自定义BeanNameGenerator</h3><p>为了最大程度不改变spring原来的逻辑，我们继承AnnotationBeanNameGenerator类，然后进行逻辑添加。代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> datastructure.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.AnnotationBeanNameGenerator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> RobinTed</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PracticeBeanNameGenerator</span> <span class="keyword">extends</span> <span class="title">AnnotationBeanNameGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String PRACTICE_ANNOTATION_CLASSNAME = <span class="string">"datastructure.sort.Practice"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isStereotypeWithNameValue</span><span class="params">(String annotationType, Set&lt;String&gt; metaAnnotationTypes, Map&lt;String, Object&gt; attributes)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//不改变spring原有逻辑</span></span><br><span class="line">        <span class="keyword">boolean</span> originCheckIsStereotype = <span class="keyword">super</span>.isStereotypeWithNameValue(annotationType, metaAnnotationTypes, attributes);</span><br><span class="line">        <span class="comment">//仿照spring源码添加自己的逻辑</span></span><br><span class="line">        <span class="keyword">boolean</span> isStereotype = annotationType.equals(PRACTICE_ANNOTATION_CLASSNAME) || metaAnnotationTypes.contains(PRACTICE_ANNOTATION_CLASSNAME);</span><br><span class="line">        <span class="comment">//逻辑合并</span></span><br><span class="line">        <span class="keyword">return</span> originCheckIsStereotype || (isStereotype &amp;&amp; attributes != <span class="keyword">null</span> &amp;&amp; attributes.containsKey(<span class="string">"value"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，目标类有了，怎么让它生效呢？</p>
+<h3 id="让自定义的类生效"><a href="#让自定义的类生效" class="headerlink" title="让自定义的类生效"></a>让自定义的类生效</h3><p>平常我们启动基于注解的spring的时候，获得容器都是这样写的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext(MainConfig.class);</span><br></pre></td></tr></table></figure>
+
+<p>现在点进去这个类：AnnotationConfigApplicationContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">AnnotationConfigApplicationContext</span><span class="params">(Class&lt;?&gt;... annotatedClasses)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>();</span><br><span class="line">		register(annotatedClasses);</span><br><span class="line">		refresh();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要为我们做了三件事，执行默认构造函数，注册传进去的配置类，刷新容器。<br>显然，我们要修改默认的BeanNameGenerator，必定要在刷新容器之前将目标类设置进去。</p>
+<p>看看AnnotationConfigApplicationContext里面还有没有其他方法。idea点开Structure，可以看到有一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanNameGenerator</span><span class="params">(BeanNameGenerator beanNameGenerator)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.reader.setBeanNameGenerator(beanNameGenerator);</span><br><span class="line">		<span class="keyword">this</span>.scanner.setBeanNameGenerator(beanNameGenerator);</span><br><span class="line">		getBeanFactory().registerSingleton(</span><br><span class="line">				AnnotationConfigUtils.CONFIGURATION_BEAN_NAME_GENERATOR, beanNameGenerator);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法里面可以传进去自定义的BeanNameGenerator，我们能想到的，spring都想到了。</p>
+<p>所以测试方法这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AnnotationConfigApplicationContext applicationContext = <span class="keyword">new</span> AnnotationConfigApplicationContext();</span><br><span class="line">        applicationContext.setBeanNameGenerator(<span class="keyword">new</span> PracticeBeanNameGenerator());</span><br><span class="line">        applicationContext.register(MainConfig.class);</span><br><span class="line">        applicationContext.refresh();</span><br></pre></td></tr></table></figure>
+<p>再测试一下，是不是@Practice的value已经生效了呢。</p>
+<p>完整代码看上一篇的算法讲解。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>像这种自定义组件扩展的需求，我们首先可以想一下spring现有的是怎么工作的，然后可以借鉴spring源码的实现，来实现我们自己的需求。注意时刻想到后置处理器。</p>
+<p>spring的强大无处不在。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="最易懂的排序算法实现--java语言">
+                  <i class="fa fa-chevron-left"></i> 最易懂的排序算法实现--java语言
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主配置类"><span class="nav-number">2.</span> <span class="nav-text">主配置类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从源码分析"><span class="nav-number">3.</span> <span class="nav-text">从源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">3.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义BeanNameGenerator"><span class="nav-number">3.2.</span> <span class="nav-text">自定义BeanNameGenerator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让自定义的类生效"><span class="nav-number">3.3.</span> <span class="nav-text">让自定义的类生效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Robin Ted"
+    src="/upload/french_horn.png">
+  <p class="site-author-name" itemprop="name">Robin Ted</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Robin Ted</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+  <script>
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','mVpaEzwouHYSxmzCesnQ','2.0.0');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
