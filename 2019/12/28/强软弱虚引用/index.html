@@ -50,28 +50,31 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Robin Ted">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="GCRoot可以作为根的集合GC ROOTS根集合：一组活跃的引用1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)2.方法区中的类静态性引用的对象3.方法区中常量引用的对象4.本地方法栈中(Native方法)引用的对象 可达性分析通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强软弱虚引用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;28&#x2F;%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
+<meta property="og:description" content="GCRoot可以作为根的集合GC ROOTS根集合：一组活跃的引用1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)2.方法区中的类静态性引用的对象3.方法区中常量引用的对象4.本地方法栈中(Native方法)引用的对象 可达性分析通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-11T13:19:37.027Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/12/28/%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Robin Ted</title>
+  <title>强软弱虚引用 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -184,67 +187,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/11/springboot%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/11/springboot%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8/" class="post-title-link" itemprop="url">springboot自定义视图解析器</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-01-11 19:27:05" itemprop="dateCreated datePublished" datetime="2020-01-11T19:27:05+08:00">2020-01-11</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/28/%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -258,8 +204,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/28/%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8/" class="post-title-link" itemprop="url">强软弱虚引用</a>
+          强软弱虚引用
         </h1>
 
         <div class="post-meta">
@@ -290,7 +235,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="GCRoot"><a href="#GCRoot" class="headerlink" title="GCRoot"></a>GCRoot</h2><h3 id="可以作为根的集合"><a href="#可以作为根的集合" class="headerlink" title="可以作为根的集合"></a>可以作为根的集合</h3><p>GC ROOTS根集合：一组活跃的引用<br>1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)<br>2.方法区中的类静态性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中(Native方法)引用的对象</p>
+        <h2 id="GCRoot"><a href="#GCRoot" class="headerlink" title="GCRoot"></a>GCRoot</h2><h3 id="可以作为根的集合"><a href="#可以作为根的集合" class="headerlink" title="可以作为根的集合"></a>可以作为根的集合</h3><p>GC ROOTS根集合：一组活跃的引用<br>1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)<br>2.方法区中的类静态性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中(Native方法)引用的对象</p>
 <h3 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h3><p>通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个集合的引用作为根出发，通过引用关系遍历对象图，能被遍历到的(引用可达)对象就判定为存活，没有遍历到的就判定为死亡(垃圾，引用不可达)，被回收。</p>
 <h3 id="根搜索路径"><a href="#根搜索路径" class="headerlink" title="根搜索路径"></a>根搜索路径</h3><p>判断是否可达，必须得从根集合开始，如果一个路径中没有任何一个路径有根集合中的节点，则整个路劲都是不可达的。</p>
 <p>对JVM的学习不是很深入，这一部分有兴趣也可以自行研究。这里提醒一下，一定却分开引用和对象，不然看到后面会一脸懵逼。</p>
@@ -398,677 +343,39 @@
 <p>jdk自带了一个WeakHashMap，用来存储弱引用的哈希表，底层是对key进行弱引用包装，当key被回收后，<br>对应的值也会被删除.spring 3引进了一个ConcurrentReferenceHashMap，spring5相较于spring4改进的一点就是添加了大量的缓存，并且是使用的<br>这个类，可以看一下ReflectionUtils这个类在spring4和spring5中的变化。ConcurrentReferenceHashMap默认是使用的软引用，底层是一个Entry[]数组，<br>并且是对每一个Entry进行引用包装的，而不是像WeakHashMap那样只对key进项包装，有兴趣的可以自己看一下这两个类的源码实现。</p>
 <p>说到引用和虚拟机的关系，目前还没有具体去了解虚拟机层面是怎么操作的，如果有机会，学到虚拟机底层再分析一下。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/24/%E5%AE%89%E5%8D%93so%E5%8A%A0%E5%AF%86%E5%87%A0%E4%B8%AA%E5%8F%8D%E9%9D%A2%E4%BE%8B%E5%AD%90/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/24/%E5%AE%89%E5%8D%93so%E5%8A%A0%E5%AF%86%E5%87%A0%E4%B8%AA%E5%8F%8D%E9%9D%A2%E4%BE%8B%E5%AD%90/" class="post-title-link" itemprop="url">安卓so加密几个反面例子</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-24 20:25:53" itemprop="dateCreated datePublished" datetime="2019-12-24T20:25:53+08:00">2019-12-24</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/" class="post-title-link" itemprop="url">自定义注解扫描</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-12-23 18:55:50 / Modified: 19:00:21" itemprop="dateCreated datePublished" datetime="2019-12-23T18:55:50+08:00">2019-12-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/spring/%E6%BA%90%E7%A0%81/" itemprop="url" rel="index">
-                    <span itemprop="name">源码</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          从源码分析如何自定义注解扫描
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/">
-                Read more &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/24/%E5%AE%89%E5%8D%93so%E5%8A%A0%E5%AF%86%E5%87%A0%E4%B8%AA%E5%8F%8D%E9%9D%A2%E4%BE%8B%E5%AD%90/" rel="next" title="安卓so加密几个反面例子">
+                  <i class="fa fa-chevron-left"></i> 安卓so加密几个反面例子
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+            <span class="post-nav-divider"></span>
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">最易懂的排序算法实现--java语言</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-12-20 20:37:34" itemprop="dateCreated datePublished" datetime="2019-12-20T20:37:34+08:00">2019-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-12-24 21:56:43" itemprop="dateModified" datetime="2019-12-24T21:56:43+08:00">2019-12-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          最易懂的排序算法java实现
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/20/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
-                Read more &raquo;
-              </a>
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/01/11/springboot%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8/" rel="prev" title="springboot自定义视图解析器">
+                  springboot自定义视图解析器 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+          </div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/" class="post-title-link" itemprop="url">提取安卓so</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-13 21:49:13 / Modified: 21:50:21" itemprop="dateCreated datePublished" datetime="2019-11-13T21:49:13+08:00">2019-11-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E9%80%86%E5%90%91/" itemprop="url" rel="index">
-                    <span itemprop="name">逆向</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          提取安卓so文件方法步骤
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/13/%E6%8F%90%E5%8F%96%E5%AE%89%E5%8D%93so/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/" class="post-title-link" itemprop="url">动态生成HTML</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-13 21:47:06 / Modified: 21:48:41" itemprop="dateCreated datePublished" datetime="2019-11-13T21:47:06+08:00">2019-11-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          动态生成HTML页面
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/13/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90HTML/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">获取cookie的另类方法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 21:15:04 / Modified: 21:16:21" itemprop="dateCreated datePublished" datetime="2019-11-12T21:15:04+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          通过浏览器获取cookie再赋值
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/%E8%8E%B7%E5%8F%96cookie%E7%9A%84%E5%8F%A6%E7%B1%BB%E6%96%B9%E6%B3%95/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/" class="post-title-link" itemprop="url">selenium解决加载阻塞</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 21:11:57 / Modified: 21:13:29" itemprop="dateCreated datePublished" datetime="2019-11-12T21:11:57+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/selenium/" itemprop="url" rel="index">
-                    <span itemprop="name">selenium</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          selenium加载策略和等待策略解决加载阻塞
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/selenium%E8%A7%A3%E5%86%B3%E5%8A%A0%E8%BD%BD%E9%98%BB%E5%A1%9E/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/upload/french_horn.png">
-      <meta itemprop="name" content="Robin Ted">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Robin Ted">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/" class="post-title-link" itemprop="url">frida常见错误</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2019-11-12 20:52:06 / Modified: 20:54:38" itemprop="dateCreated datePublished" datetime="2019-11-12T20:52:06+08:00">2019-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%80%E6%9C%AF/frida/" itemprop="url" rel="index">
-                    <span itemprop="name">frida</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          frida常见错误及解决方法
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/12/frida%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF/">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1097,6 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCRoot"><span class="nav-number">1.</span> <span class="nav-text">GCRoot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可以作为根的集合"><span class="nav-number">1.1.</span> <span class="nav-text">可以作为根的集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可达性分析"><span class="nav-number">1.2.</span> <span class="nav-text">可达性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根搜索路径"><span class="nav-number">1.3.</span> <span class="nav-text">根搜索路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强引用"><span class="nav-number">2.</span> <span class="nav-text">强引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明方式"><span class="nav-number">2.1.</span> <span class="nav-text">声明方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时回收"><span class="nav-number">2.2.</span> <span class="nav-text">何时回收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软引用"><span class="nav-number">3.</span> <span class="nav-text">软引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明方式-1"><span class="nav-number">3.1.</span> <span class="nav-text">声明方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时回收-1"><span class="nav-number">3.2.</span> <span class="nav-text">何时回收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弱引用"><span class="nav-number">4.</span> <span class="nav-text">弱引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明方式-2"><span class="nav-number">4.1.</span> <span class="nav-text">声明方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时回收-2"><span class="nav-number">4.2.</span> <span class="nav-text">何时回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明方式-3"><span class="nav-number">4.3.</span> <span class="nav-text">声明方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时回收-3"><span class="nav-number">4.4.</span> <span class="nav-text">何时回收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReferenceQueue"><span class="nav-number">5.</span> <span class="nav-text">ReferenceQueue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓展"><span class="nav-number">6.</span> <span class="nav-text">拓展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
