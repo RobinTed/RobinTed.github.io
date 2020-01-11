@@ -276,8 +276,31 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-11 21:19:37" itemprop="dateModified" datetime="2020-01-11T21:19:37+08:00">2020-01-11</time>
+                <time title="Modified: 2020-01-11 21:25:30" itemprop="dateModified" datetime="2020-01-11T21:25:30+08:00">2020-01-11</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/%E5%BC%95%E7%94%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">引用</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -290,114 +313,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="GCRoot"><a href="#GCRoot" class="headerlink" title="GCRoot"></a>GCRoot</h2><h3 id="可以作为根的集合"><a href="#可以作为根的集合" class="headerlink" title="可以作为根的集合"></a>可以作为根的集合</h3><p>GC ROOTS根集合：一组活跃的引用<br>1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)<br>2.方法区中的类静态性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中(Native方法)引用的对象</p>
-<h3 id="可达性分析"><a href="#可达性分析" class="headerlink" title="可达性分析"></a>可达性分析</h3><p>通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个集合的引用作为根出发，通过引用关系遍历对象图，能被遍历到的(引用可达)对象就判定为存活，没有遍历到的就判定为死亡(垃圾，引用不可达)，被回收。</p>
-<h3 id="根搜索路径"><a href="#根搜索路径" class="headerlink" title="根搜索路径"></a>根搜索路径</h3><p>判断是否可达，必须得从根集合开始，如果一个路径中没有任何一个路径有根集合中的节点，则整个路劲都是不可达的。</p>
-<p>对JVM的学习不是很深入，这一部分有兴趣也可以自行研究。这里提醒一下，一定却分开引用和对象，不然看到后面会一脸懵逼。</p>
-<h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><h3 id="声明方式"><a href="#声明方式" class="headerlink" title="声明方式"></a>声明方式</h3><p>平常我们用的引用绝大多数是强引用。<br>强引用的表示方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object o = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
-
-<p>此时o就是一个强引用。</p>
-<h3 id="何时回收"><a href="#何时回收" class="headerlink" title="何时回收"></a>何时回收</h3><p>强引用只要GCRoots可达，无论怎么都不会被GC回收。</p>
-<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><h3 id="声明方式-1"><a href="#声明方式-1" class="headerlink" title="声明方式"></a>声明方式</h3><p>Java里面声明一个软引用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SoftReference&lt;Object&gt; softReference = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
-
-<p>此时就声明了一个Object对象的软引用。</p>
-<h3 id="何时回收-1"><a href="#何时回收-1" class="headerlink" title="何时回收"></a>何时回收</h3><p>软引用会在堆内存不够的情况下回收。</p>
-<p>测试：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SoftReference&lt;Object&gt; softReference = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br><span class="line">System.out.println(softReference.get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(softReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>尝试运行上面这一段代码，输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@80bfe8</span><br><span class="line">java.lang.Object@80bfe8</span><br></pre></td></tr></table></figure>
-
-<p>手动GC并没有将实例化的Object对象回收掉。</p>
-<p>再来测试一段代码，这个时候添加一下VM参数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms5m -Xmx5m</span><br></pre></td></tr></table></figure>
-
-<p>需要看详细信息的话，自己加一个-XX:+PrintGCDetails</p>
-<p>将堆的大小固定在5m</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Reference ref = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    ref = <span class="keyword">new</span> SoftReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br><span class="line">    System.out.println(ref.get());</span><br><span class="line">    <span class="comment">//声明一个5m大小的对象</span></span><br><span class="line">    <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">5</span> * <span class="number">1020</span> * <span class="number">1024</span>];</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    System.out.println(ref.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行输出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@80bfe8</span><br><span class="line">null</span><br><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.lang.OutOfMemoryError: Java heap space</span><br><span class="line">	at reference.SoftReferenceDemo.main(SoftReferenceDemo.java:23)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当堆内存空间不足时，就会回收软引用里面声明的Object对象。</p>
-<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><h3 id="声明方式-2"><a href="#声明方式-2" class="headerlink" title="声明方式"></a>声明方式</h3><p>和软引用差不多，换成WeakReference：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br></pre></td></tr></table></figure>
-
-<h3 id="何时回收-2"><a href="#何时回收-2" class="headerlink" title="何时回收"></a>何时回收</h3><p>只要GC，只有弱引用的对象就会被回收。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(weakReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@121c9d6</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>虚引用：</p>
-<h3 id="声明方式-3"><a href="#声明方式-3" class="headerlink" title="声明方式"></a>声明方式</h3><p>注意，虚引用的声明必须和引用队列一起</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ReferenceQueue queue = <span class="keyword">new</span> ReferenceQueue&lt;&gt;();</span><br><span class="line">PhantomReference phantomReference = <span class="keyword">new</span> PhantomReference&lt;&gt;(<span class="keyword">new</span> Object(), queue);</span><br><span class="line">System.out.println(phantomReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<h3 id="何时回收-3"><a href="#何时回收-3" class="headerlink" title="何时回收"></a>何时回收</h3><p>不回收，主要用于跟踪对象被回收，可以得到一个通知。</p>
-<h2 id="ReferenceQueue"><a href="#ReferenceQueue" class="headerlink" title="ReferenceQueue"></a>ReferenceQueue</h2><p>WeakReference和SoftReference也有一个传ReferenceQueue参数的构造函数，以WeakReference为例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ReferenceQueue&lt;Object&gt; queue = <span class="keyword">new</span> ReferenceQueue&lt;&gt;();</span><br><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object(), queue);</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(queue.poll());</span><br><span class="line"></span><br><span class="line">System.gc();</span><br><span class="line"></span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line"><span class="comment">//因为默认的垃圾回器是异步的，所以这里阻塞一下，等待回收完成</span></span><br><span class="line">System.out.println(queue.remove());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@80bfe8</span><br><span class="line">null</span><br><span class="line">null</span><br><span class="line">java.lang.ref.WeakReference@a29884</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当Object对象被回收后，weakReference就被添加到了引用队列里面。</p>
-<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>以WeakReference为例。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(object);</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(weakReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@121c9d6</span><br><span class="line">java.lang.Object@121c9d6</span><br></pre></td></tr></table></figure>
-
-<p>此时实例对象Object没有被回收，因为有一个强引用object还指向Object对象，垃圾回收以最强引用为标准。</p>
-<p>现在去掉强引用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;Object&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(object);</span><br><span class="line"><span class="comment">//去掉强引用</span></span><br><span class="line">object = <span class="keyword">null</span>;</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(weakReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object@121c9d6</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>可以看到Object被回收了。</p>
-<p>再看一种情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;WeakReference&lt;Object&gt;&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> WeakReference&lt;&gt;(object));</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(weakReference.get().get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(object);</span><br><span class="line">System.out.println(weakReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ref.WeakReference@121c9d6</span><br><span class="line">java.lang.Object@7f383f</span><br><span class="line">java.lang.Object@7f383f</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，指向Object对象的虚引用对象被回收后，强引用依然存在。<br>new WeakReference同样是一个对象。</p>
-<p>再看一种</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;Object&gt; objectWeakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(object);</span><br><span class="line">WeakReference&lt;WeakReference&lt;Object&gt;&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(objectWeakReference);</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(weakReference.get().get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(object);</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(weakReference.get().get());</span><br></pre></td></tr></table></figure>
-
-<p>输出</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ref.WeakReference@121c9d6</span><br><span class="line">java.lang.Object@7f383f</span><br><span class="line">java.lang.Object@7f383f</span><br><span class="line">java.lang.ref.WeakReference@121c9d6</span><br><span class="line">java.lang.Object@7f383f</span><br></pre></td></tr></table></figure>
-
-<p>可以看到objectWeakReference指向的对象并没有被回收，因为objectWeakReference本身是一个强引用，所以在内存充足的情况下，不会被回收。</p>
-<p>写上面两点的目的是认识清楚：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">WeakReference&lt;Object&gt; objectWeakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(object);</span><br></pre></td></tr></table></figure>
-<p>这一段代码。<br>这一段代码表示了objectWeakReference是指向new WeakReference的一个强引用，指向new Object()的一个弱引用。<br>因为WeakReference也是new出来的，objectWeakReference同样在局部变量表里面，指向堆里面的new WeakReference和其他对象没有任何区别，千万不要认为WeakReference是weak，声明的时候也是弱引用。弱引用是指为它包装的那一个对象添加一个弱引用。</p>
-<p>理解清楚了上面那一段话，来看看下面这个是输出什么：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;Object&gt; objectWeakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="keyword">new</span> Object());</span><br><span class="line">WeakReference&lt;WeakReference&lt;Object&gt;&gt; weakReference = <span class="keyword">new</span> WeakReference&lt;&gt;(objectWeakReference);</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(weakReference.get().get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(weakReference.get());</span><br><span class="line">System.out.println(weakReference.get().get());</span><br></pre></td></tr></table></figure>
-
-<p>看一下，应该输出什么</p>
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ref.WeakReference@121c9d6</span><br><span class="line">java.lang.Object@7f383f</span><br><span class="line">java.lang.ref.WeakReference@121c9d6</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
-
-<p>看看和自己理解的是不是一样。</p>
-<p>再看一个：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;String&gt; helloReference = <span class="keyword">new</span> WeakReference&lt;&gt;(<span class="string">"hello"</span>);</span><br><span class="line">System.out.println(helloReference.get());</span><br><span class="line">System.gc();</span><br><span class="line">System.out.println(helloReference.get());</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
-
-<p>因为字符串是放在字符串常量池中的，虽然也在堆空间里面，但是这里不会被回收。具体什么时候回收，可以先自行了解一下，也是内容很多的一个知识点。</p>
-<p>解释一下：<br>因为new Object()只有一个弱引用，所以会被回收，objectWeakReference是一个指向new WeakReference&lt;&gt;(new Object())的强引用，所以第一个WeakReference不会被回收。</p>
-<p>最后来看看WeakReference的官方文档，里面有这样一句话：Suppose that the garbage collector determines at a certain point in time that an object is weakly reachable.At that time it will atomically clear all weak references to that object and all weak references to any other weakly-reachable objects from which that object is reachable through a chain of strong and soft references.<br>当GC决定回收只有弱引用的对象时，会根据引用链传导，回收引用链上面的全部弱引用可达。<br>这句话的前半句：an object is weakly reachable觉得应该是an object is only weakly reachable，只有弱引用可达才会被回收。<br>这句话的后半句通过引用链的强软引用进行可达回收，个人理解应该是如果一个引用链上面的强引用或者弱引用被回收了，这个引用链上面的弱引用也会被回收。<br>如果有误，请多多指教：<a href="mailto:mytanlord@gmail.com" target="_blank" rel="noopener">mytanlord@gmail.com</a> 。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>涉及到引用这个方面，就会想到缓存和虚拟机垃圾回收。</p>
-<p>jdk自带了一个WeakHashMap，用来存储弱引用的哈希表，底层是对key进行弱引用包装，当key被回收后，<br>对应的值也会被删除.spring 3引进了一个ConcurrentReferenceHashMap，spring5相较于spring4改进的一点就是添加了大量的缓存，并且是使用的<br>这个类，可以看一下ReflectionUtils这个类在spring4和spring5中的变化。ConcurrentReferenceHashMap默认是使用的软引用，底层是一个Entry[]数组，<br>并且是对每一个Entry进行引用包装的，而不是像WeakHashMap那样只对key进项包装，有兴趣的可以自己看一下这两个类的源码实现。</p>
-<p>说到引用和虚拟机的关系，目前还没有具体去了解虚拟机层面是怎么操作的，如果有机会，学到虚拟机底层再分析一下。</p>
-
+          详解强弱软虚引用
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/28/%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8/">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1119,11 +1043,11 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

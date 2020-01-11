@@ -50,14 +50,15 @@
   };
 </script>
 
-  <meta name="description" content="GCRoot可以作为根的集合GC ROOTS根集合：一组活跃的引用1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)2.方法区中的类静态性引用的对象3.方法区中常量引用的对象4.本地方法栈中(Native方法)引用的对象 可达性分析通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个">
+  <meta name="description" content="详解强弱软虚引用">
+<meta name="keywords" content="虚拟机,引用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强软弱虚引用">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;28&#x2F;%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
-<meta property="og:description" content="GCRoot可以作为根的集合GC ROOTS根集合：一组活跃的引用1.虚拟机栈中引用的对象(栈帧中的局部变量，即局部变量表中的对象)2.方法区中的类静态性引用的对象3.方法区中常量引用的对象4.本地方法栈中(Native方法)引用的对象 可达性分析通过根集合作为一些列起始点，从GC ROOTS的对象开始向下搜索，如果一个对象到GC ROOTS没有任何引用链相连时，则说明这个对象不可达。即，给定一个">
+<meta property="og:description" content="详解强弱软虚引用">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-11T13:19:37.027Z">
+<meta property="og:updated_time" content="2020-01-11T13:25:30.253Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/28/%E5%BC%BA%E8%BD%AF%E5%BC%B1%E8%99%9A%E5%BC%95%E7%94%A8/">
@@ -221,10 +222,34 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-11 21:19:37" itemprop="dateModified" datetime="2020-01-11T21:19:37+08:00">2020-01-11</time>
+                <time title="Modified: 2020-01-11 21:25:30" itemprop="dateModified" datetime="2020-01-11T21:25:30+08:00">2020-01-11</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%80%E6%9C%AF/java/%E5%BC%95%E7%94%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">引用</span>
+                  </a>
+                </span>
+            </span>
 
           
+            <div class="post-description">详解强弱软虚引用</div>
 
         </div>
       </header>
@@ -350,6 +375,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"># 虚拟机</a>
+              <a href="/tags/%E5%BC%95%E7%94%A8/" rel="tag"># 引用</a>
+          </div>
 
         
 
@@ -427,11 +456,11 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
