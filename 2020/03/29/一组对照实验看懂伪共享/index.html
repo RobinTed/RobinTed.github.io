@@ -65,8 +65,8 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;object_data.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;mark_word.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;false_sharing.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;padding_sharing.png">
-<meta property="og:updated_time" content="2020-03-29T07:09:51.903Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;contended_sharing.png">
+<meta property="og:updated_time" content="2020-03-29T07:14:11.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;sharing_four.png">
 
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-29 09:33:46 / Modified: 15:09:51" itemprop="dateCreated datePublished" datetime="2020-03-29T09:33:46+08:00">2020-03-29</time>
+              <time title="Created: 2020-03-29 09:33:46 / Modified: 15:14:11" itemprop="dateCreated datePublished" datetime="2020-03-29T09:33:46+08:00">2020-03-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -305,7 +305,7 @@
 <h3 id="如何解决伪共享"><a href="#如何解决伪共享" class="headerlink" title="如何解决伪共享"></a>如何解决伪共享</h3><p>上面的代码，将操作的对象改为PaddingSharing和ContendedSharing，它们的时间都差不多是Sharing的四分之一。下面来分析一下为什么会出现这种情况。</p>
 <p>根据上面计算对象大小的方法，可以计算出PaddingSharing一个对象的大小：<br>对象头：Mark Word 8byte；Klass Pointer 4byte。一共12byte<br>实例数据：一共6个long型数据，6 × 8 = 48byte<br>填充数据：12 + 48 = 60，距离64相差4byte，所以填充数据4个byte</p>
 <p>算下来一个PaddingSharing对象的大小是64byte，刚好是一个缓存行的大小。那么为什么计算速度会更快呢。下面还是画图分析一下：</p>
-<p><img src="padding_sharing.png" alt=""></p>
+<p><img src="contended_sharing.png" alt=""></p>
 <p>可以看出，这个时候core1需要的对象对应了一个缓存行，core2需要的对象对应了一个缓存行，它们之间的操作时互不影响的，这个时候就达到了并行的效果。添加@Contended注解，会在对象前后各padding128位来达到这个目的。可以看一下ConcurrentHashMap就使用到了这个注解。</p>
 <h2 id="延伸"><a href="#延伸" class="headerlink" title="延伸"></a>延伸</h2><h3 id="改为单线程"><a href="#改为单线程" class="headerlink" title="改为单线程"></a>改为单线程</h3><p>将线程数改为单线程线程：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> THREAD_NUMS = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
