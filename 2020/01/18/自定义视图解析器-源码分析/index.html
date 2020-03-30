@@ -58,7 +58,7 @@
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="实现以json结尾的链接返回HTML页面">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-18T01:06:24.701Z">
+<meta property="og:updated_time" content="2020-03-30T12:11:04.777Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2020/01/18/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
@@ -214,10 +214,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-01-18 09:04:57 / Modified: 09:06:24" itemprop="dateCreated datePublished" datetime="2020-01-18T09:04:57+08:00">2020-01-18</time>
+              <time title="Created: 2020-01-18 09:04:57" itemprop="dateCreated datePublished" datetime="2020-01-18T09:04:57+08:00">2020-01-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-30 20:11:04" itemprop="dateModified" datetime="2020-03-30T20:11:04+08:00">2020-03-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -256,8 +262,7 @@
       
         <h2 id="默认情况分析"><a href="#默认情况分析" class="headerlink" title="默认情况分析"></a>默认情况分析</h2><p>web配置继承WebMvcConfigurationSupport类。</p>
 <p>还记得前几年写spring web的时候在web.xml里面配置的DispatcherServlet吗，先看一下这个类。在返回视图的controller上面打一个断点，在方法调用栈里面也可以看到这个类。<br>因为springmvc的内容比较多，这里只看一下视图解析器。</p>
-<p>##源码分析 </p>
-<p>DispatcherServlet -&gt; processDispatchResult</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>DispatcherServlet -&gt; processDispatchResult</p>
 <p>DispatcherServlet的核心方法是doDispatch，这个方法阐述了springmvc的整个过程，但不是这篇文章的主题，有兴趣可以自己研究一下。</p>
 <p>以一个登录页面：login 为例</p>
 <p>先看代码:</p>
@@ -388,7 +393,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认情况分析"><span class="nav-number">1.</span> <span class="nav-text">默认情况分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码总结"><span class="nav-number">2.</span> <span class="nav-text">源码总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动手设置"><span class="nav-number">3.</span> <span class="nav-text">动手设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认情况分析"><span class="nav-number">1.</span> <span class="nav-text">默认情况分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码总结"><span class="nav-number">3.</span> <span class="nav-text">源码总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动手设置"><span class="nav-number">4.</span> <span class="nav-text">动手设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
