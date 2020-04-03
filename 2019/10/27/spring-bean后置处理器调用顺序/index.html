@@ -307,6 +307,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -405,6 +415,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
 
   
 
@@ -661,6 +678,43 @@
 
 
 
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'robinted',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '3d6dfa89a544a052b030da5ce0bea999dcfd74ba',
+            
+                client_id: '60cb4e2d43b49ef5c767'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
