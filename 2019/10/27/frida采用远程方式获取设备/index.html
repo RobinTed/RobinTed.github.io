@@ -243,6 +243,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/10/27/frida%E9%87%87%E7%94%A8%E8%BF%9C%E7%A8%8B%E6%96%B9%E5%BC%8F%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
             <div class="post-description">frida远程获取设备进行hook</div>
 
         </div>
@@ -315,6 +329,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -465,6 +480,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: '581LLisOtejVqk3twrgYMvJb-gzGzoHsz',
+    appKey: 'H2Uo61abwSsgvD093c17eojk',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-Hans' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
 
 </body>
 </html>

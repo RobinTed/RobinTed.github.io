@@ -243,6 +243,20 @@
             </span>
 
           
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/23/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E6%89%AB%E6%8F%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
             <div class="post-description">从源码分析如何自定义注解扫描</div>
 
         </div>
@@ -355,6 +369,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -505,6 +520,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: '581LLisOtejVqk3twrgYMvJb-gzGzoHsz',
+    appKey: 'H2Uo61abwSsgvD093c17eojk',
+    placeholder: "Just go go",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: 'zh-Hans' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
 
 </body>
 </html>
