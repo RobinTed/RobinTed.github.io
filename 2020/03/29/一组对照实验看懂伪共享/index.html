@@ -54,23 +54,23 @@
 <meta name="keywords" content="JMM,并发,CPU缓存">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一组对照实验看懂伪共享">
-<meta property="og:url" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
 <meta property="og:description" content="通过对照实验，彻底理解伪共享(false sharing)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;sharing_four.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;paddingsharing_four.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;contendedsharing_four.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;cpu_info.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;object_data.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;mark_word.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;false_sharing.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;contended_sharing.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;sharing_four.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;paddingsharing_four.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;contendedsharing_four.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;cpu_info.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;object_data.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;mark_word.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;false_sharing.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;contended_sharing.png">
 <meta property="og:updated_time" content="2020-03-30T13:41:49.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;sharing_four.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2020&#x2F;03&#x2F;29&#x2F;%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB&#x2F;sharing_four.png">
 
-<link rel="canonical" href="http://robinted.top/2020/03/29/%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB/">
+<link rel="canonical" href="https://www.robinted.top/2020/03/29/%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB/">
 
 
 <script id="page-configurations">
@@ -201,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://robinted.top/2020/03/29/%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB/">
+    <link itemprop="mainEntityOfPage" href="https://www.robinted.top/2020/03/29/%E4%B8%80%E7%BB%84%E5%AF%B9%E7%85%A7%E5%AE%9E%E9%AA%8C%E7%9C%8B%E6%87%82%E4%BC%AA%E5%85%B1%E4%BA%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/upload/french_horn.png">
