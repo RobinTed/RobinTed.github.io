@@ -50,16 +50,30 @@
   };
 </script>
 
-  <meta name="description" content="spring 的beanPostProcessor调用的顺序">
+  <meta name="description" content="逐行阅读@Autowired的源码">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring bean后置处理器调用顺序">
+<meta property="og:title" content="从源码解读@Autowired依赖注入">
 <meta property="og:url" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;index.html">
 <meta property="og:site_name" content="Robin Ted">
-<meta property="og:description" content="spring 的beanPostProcessor调用的顺序">
+<meta property="og:description" content="逐行阅读@Autowired的源码">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-27T07:24:09.042Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;3.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;11.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;12.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;13.png">
+<meta property="og:updated_time" content="2020-04-16T16:13:37.219Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.robinted.top&#x2F;2019&#x2F;10&#x2F;27&#x2F;spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F&#x2F;1.png">
 
 <link rel="canonical" href="https://www.robinted.top/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/">
 
@@ -75,7 +89,7 @@
   };
 </script>
 
-  <title>spring bean后置处理器调用顺序 | Robin Ted</title>
+  <title>从源码解读@Autowired依赖注入 | Robin Ted</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150944038-1"></script>
     <script>
@@ -205,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          spring bean后置处理器调用顺序
+          从源码解读@Autowired依赖注入
         </h1>
 
         <div class="post-meta">
@@ -214,10 +228,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-10-27 15:21:42 / 修改时间：15:24:09" itemprop="dateCreated datePublished" datetime="2019-10-27T15:21:42+08:00">2019-10-27</time>
+              <time title="创建时间：2019-10-27 15:21:42" itemprop="dateCreated datePublished" datetime="2019-10-27T15:21:42+08:00">2019-10-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-17 00:13:37" itemprop="dateModified" datetime="2020-04-17T00:13:37+08:00">2020-04-17</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -237,7 +257,7 @@
             </span>
 
           
-            <span id="/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/" class="post-meta-item leancloud_visitors" data-flag-title="spring bean后置处理器调用顺序" title="阅读次数">
+            <span id="/2019/10/27/spring-bean%E5%90%8E%E7%BD%AE%E5%A4%84%E7%90%86%E5%99%A8%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F/" class="post-meta-item leancloud_visitors" data-flag-title="从源码解读@Autowired依赖注入" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -259,16 +279,16 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>6.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>11 分钟</span>
             </span>
-            <div class="post-description">spring 的beanPostProcessor调用的顺序</div>
+            <div class="post-description">逐行阅读@Autowired的源码</div>
 
         </div>
       </header>
@@ -279,7 +299,52 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h2 id="Autowired的使用"><a href="#Autowired的使用" class="headerlink" title="@Autowired的使用"></a>@Autowired的使用</h2><p>点开@Autowired注解看一下说明。<br>该注解可以标注在构造器，属性和setter方法或者配置方法上面。</p>
+<p>一个bean最多有一个构造器上面标有这个注解，当Spring注册bean的时候会用这个构造器。</p>
+<p>属性注入是在构造方法后，配置方法执行前注入。</p>
+<p>还可以在配置方法上使用这个注解，配置方法可以是任意的名字和任意多个参数，每个参数都会在spring容器中找到对应的bean进行注入。上面的setter只是配置方法注解的一个特殊例子。</p>
+<p>如果注入的是map类型的，那个map的key要和注入bean的名字一样，还可以排序，不然就会按照bean注册的顺序进行注入。</p>
+<p>@Autowired上面的注释还说注入是通过后置处理器实现的，所以你不能注入通过@Autowired注入引用到BeanPostProcessor或者是BeanFactoryPostProcessor。其实这个说法不全对。点开@Autowired的后置处理器：AutowiredAnnotationBeanPostProcessor，可以看到这个类实现了PriorityOrdered接口，如果我们的类只实现了BeanFactoryPostProcessor接口，那么AutowiredAnnotationBeanPostProcessor这个后置处理器就会在只实现了BeanFactoryPostProcessor接口的类上面生效，即使是我们的类还实现了Ordered接口也会生效，但是这个时候要注意某些注解不生效的问题。举个例子，比如用到了@Async这个注解，支持这个注解的后置处理器是AsyncAnnotationBeanPostProcessor，看一下这个类的继承关系：<br><img src="1.png" alt=""></p>
+<p>这个类继承的是BeanPostProcessor和Ordered，如果我们在实现了Ordered接口的后置处理器注入有这个注解的类引用时，那么@Async这个注解是不会生效的，感兴趣的同学可以先自行研究一下spring容器加载后置处理器的顺序。上面还说了BeanFactoryPostProcessor，注入实现了这个接口的类的时候，@Autowired是肯定不会生效的，因为这个是容器级别的后置处理器，刷新容器的时候早于BeanPostProcessor。</p>
+<h2 id="AutowiredAnnotationBeanPostProcessor类大概情况"><a href="#AutowiredAnnotationBeanPostProcessor类大概情况" class="headerlink" title="AutowiredAnnotationBeanPostProcessor类大概情况"></a>AutowiredAnnotationBeanPostProcessor类大概情况</h2><p>点进去这个类，看到无参构造里面将三个注解加入到了autowiredAnnotationTypes里面：Autowired，Value还有JSR330规范的Inject(如果有的话)，也就是这个后置处理器同时做用于这三个注解。</p>
+<p>看两个内部类：AutowiredFieldElement和AutowiredMethodElement。从名字可以知道一个是属性注入，一个是方法注入。起始从这两个类的inject方法的最后部分就可以看出，一个是反射设置属性，一个是反射调用方法，最终的落地都是反射。</p>
+<p>再来看一个方法registerDependentBeans。处理依赖的，因为注入避免不了依赖。这个方法里面有一行代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.beanFactory.registerDependentBean(autowiredBeanName, beanName);</span><br></pre></td></tr></table></figure>
+<p>将依赖的bean注到容器里面。</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>测试的类还是<a href="https://blog.csdn.net/you_and_dream/article/details/103247238" target="_blank" rel="noopener">上一次</a>的几个类。</p>
+<p>选两个入口断点：PostProcessorRegistrationDelegate的registerBeanPostProcessors。<br>AbstractApplicationContext的finishBeanFactoryInitialization。为什么是这两个，调一次容器加载就清楚了，这个不是本文的重点。</p>
+<h3 id="开始调试"><a href="#开始调试" class="headerlink" title="开始调试"></a>开始调试</h3><p>来到第一个断点，AutowiredAnnotationBeanPostProcessor已经注册进去了<br><img src="2.png" alt=""><br>F9来到下一个断点，F7进去。<br>来到第一个for循环，打上断点：<br><img src="3.png" alt=""><br>这个for循环是初始化非懒加载的所有单实例bean的。<br>我们关心的是@Autowired注解，所以一直放过F9，到beanName是targetInject才暂停。</p>
+<p>在放行的过程中，可以看到普通bean是按照文件的名字初始化的。</p>
+<p>来到targetInject，一直F8来到：<br><img src="4.png" alt=""><br>进去：getBean -&gt; doGetBean ，下一步，早期检查单实例缓存有没有：<br><img src="5.png" alt=""><br>F7进去 getSingleton -&gt; getSingleton  -&gt;getSingleton<br><img src="6.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> Object <span class="title">getSingleton</span><span class="params">(String beanName, <span class="keyword">boolean</span> allowEarlyReference)</span> </span>&#123;</span><br><span class="line">		Object singletonObject = <span class="keyword">this</span>.singletonObjects.get(beanName);</span><br><span class="line">		<span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; isSingletonCurrentlyInCreation(beanName)) &#123;</span><br><span class="line">			<span class="keyword">synchronized</span> (<span class="keyword">this</span>.singletonObjects) &#123;</span><br><span class="line">				singletonObject = <span class="keyword">this</span>.earlySingletonObjects.get(beanName);</span><br><span class="line">				<span class="keyword">if</span> (singletonObject == <span class="keyword">null</span> &amp;&amp; allowEarlyReference) &#123;</span><br><span class="line">					ObjectFactory&lt;?&gt; singletonFactory = <span class="keyword">this</span>.singletonFactories.get(beanName);</span><br><span class="line">					<span class="keyword">if</span> (singletonFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">						singletonObject = singletonFactory.getObject();</span><br><span class="line">						<span class="keyword">this</span>.earlySingletonObjects.put(beanName, singletonObject);</span><br><span class="line">						<span class="keyword">this</span>.singletonFactories.remove(beanName);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> (singletonObject != NULL_OBJECT ? singletonObject : <span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里就是三级缓存解决循环引用的地方。如果有两个bean相互引用了，spring的操作是将实例化完的bean放进singletonFactories这一级缓存，此时bean还没有初始化，有两个bean，B1和B2相互引用了，B1 create完实例后放到singletonFactories里面了，在装配B1的时候需要用到B2，发现容器中没有B2，于是就创建B2，创建好B2的实例，也放到singletonFactories里面，此时虽然有了B2，但是也不会回头去装配B1，因为流程都是一套一套的，要先走完B2，此时应该是装配B2，装配B2的时候发现需要B1，走到上面那个截图的地方，发现singletonObjects里面没有B1，但是B1正在创建中。这个正在创建中是怎么判断的呢，有一个方法beforeSingletonCreation，在bean创建之前会将bean的名字加到singletonsCurrentlyInCreation里面，然后还有一个afterSingletonCreation，在bean创建结束会将bean的名字从singletonsCurrentlyInCreation移除。<br>很明显B1是在singletonsCurrentlyInCreation里面，来到下一步，发现earlySingletonObjects里面也没有B1，再向下，发现singletonFactories里面有B1，于是将singletonFactories里面的bean实例提取出来放进earlySingletonObjects里面，从singletonFactories移除，进行提早曝光。至于为什么要从singletonFactories提取出来放进earlySingletonObjects里面，而不是直接从singletonFactories获取返回，个人的理解是进行不同创建流程的bean进行分区隔离，具体是不是这样，我们后期跟进这个earlySingletonObjects，如果有误，请多多指教。</p>
+<p>继续向下，targetInject并没有循环引用，所以上面一步返回的是空，走普通流程，下一步。<br>这里有一个标记为已经创建：<br><img src="7.png" alt=""><br>就是将bean的名字放进集合alreadyCreated里面。继续向下，来到：<br><img src="8.png" alt=""><br>这里也是getSingleton，上面的getSingleton是从缓存里面拿，拿不到，这里就直接创建了。继续走，后面的都是bean的创建流程，不是本文重点，大致流程：createBean -&gt; doCreateBean -&gt; populateBean 先创建，再装配bean，装配的过程中会进行后置处理器的执行：<br><img src="9.png" alt=""><br>过滤初始化后置处理器，在最开始AutowiredAnnotationBeanPostProcessor的继承关系图里面看到了，这个类实现了InstantiationAwareBeanPostProcessor这个接口，进入实现的方法：<br><img src="10.png" alt=""><br>可以看到注入的元素据信息，required默认为true，注入的地方是field，属性注入。进到inject里面：inject -&gt; element.inject，一直向下，来到这一行代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);</span><br></pre></td></tr></table></figure>
+<p>解决依赖应该是注入最重要的一个环节之一。可以看到，解决依赖是在DefaultListableBeanFactory这个默认bean工厂里面进行的。来到这里：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">				result = doResolveDependency(descriptor, requestingBeanName, autowiredBeanNames, typeConverter);</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+<p>进入doResolveDependency，寻找合适的bean：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; matchingBeans = findAutowireCandidates(beanName, type, descriptor);</span><br></pre></td></tr></table></figure>
+<p>进入，这个方法上面的注释是：寻找匹配这个类型的bean实例。其实可以是实例，也可以是类，调试到后面会看到。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] candidateNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(</span><br><span class="line">				<span class="keyword">this</span>, requiredType, <span class="keyword">true</span>, descriptor.isEager());</span><br></pre></td></tr></table></figure>
+<p>这一句就是找到匹配的类型对应的名称，找到了三个：<br><img src="11.png" alt=""><br>继续向下，来到这一段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String candidate : candidateNames) &#123;</span><br><span class="line">			<span class="keyword">if</span> (!isSelfReference(beanName, candidate) &amp;&amp; isAutowireCandidate(candidate, descriptor)) &#123;</span><br><span class="line">				addCandidateEntry(result, candidate, descriptor, requiredType);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>这一段在<a href="https://blog.csdn.net/you_and_dream/article/details/103247238" target="_blank" rel="noopener">上一篇</a>说过了，主要是检查是不是自引用和是不是匹配的候选bean，是不是匹配的候选bean实际上就是判断一下是不是类型相同和检查是否标记了@Qualifier注解，如果标记了，当前bean是否和标记的bean名称相同。这里我们没有标记，向下：<br>进入这个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addCandidateEntry</span><span class="params">(Map&lt;String, Object&gt; candidates, String candidateName,</span></span></span><br><span class="line"><span class="function"><span class="params">		DependencyDescriptor descriptor, Class&lt;?&gt; requiredType)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (descriptor <span class="keyword">instanceof</span> MultiElementDescriptor || containsSingleton(candidateName)) &#123;</span><br><span class="line">		candidates.put(candidateName, descriptor.resolveCandidate(candidateName, requiredType, <span class="keyword">this</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		candidates.put(candidateName, getType(candidateName));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从这里验证上面那句话，候选的不仅仅是实例，还可以是类型。如果当前候选bean已经实例化在容器中了，那么就将实例化的bean放进候选map中，如果没有的话，就将这个类加到候选map。这也就是为什么开始说容器加载bean默认是按照文件的顺序加载，TargetInject的首字母都是在三个候选bean的首字母P后面，感兴趣的可以将TargetInject前面加一个A，放在候选bean前面试试。</p>
+<p>当然这里都是添加的实例：<br><img src="12.png" alt=""><br>向下走，把三个都加进去。<br>走到这里：<br><img src="13.png" alt=""><br>怎样选择候选的bean，在上一篇说过，这里直接过。我这里最终选出来的是prioritySelected，我用的是上一篇改造过的beanFactory，自己调试可能是primarySelected。</p>
+<p>在返回这里还有一个关键步骤：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (instanceCandidate <span class="keyword">instanceof</span> Class ?</span><br><span class="line">					descriptor.resolveCandidate(autowiredBeanName, type, <span class="keyword">this</span>) : instanceCandidate);</span><br></pre></td></tr></table></figure>
+<p>如果是Class类型，说明容器中没有找到注入的实例，点进去resolveCandidate：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">resolveCandidate</span><span class="params">(String beanName, Class&lt;?&gt; requiredType, BeanFactory beanFactory)</span></span></span><br><span class="line"><span class="function">			<span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> beanFactory.getBean(beanName, requiredType);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>是一个普通的bean创建。最终返回的是一个注入实例。</p>
+<p>继续向下，来到这一步：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerDependentBeans(beanName, autowiredBeanNames);</span><br></pre></td></tr></table></figure>
+<p>将prioritySelected注册为targetInject依赖的bean。点到beanFactory的registerDependentBean已经说得很清楚了，是为了在被注入的bean销毁前销毁注入的bean。spring考虑得非常全。</p>
+<p>最后一步，反射赋值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (value != <span class="keyword">null</span>) &#123;</span><br><span class="line">				ReflectionUtils.makeAccessible(field);</span><br><span class="line">				field.set(bean, value);</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结束。</p>
+
     </div>
 
     
@@ -345,6 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Autowired的使用"><span class="nav-number">1.</span> <span class="nav-text">@Autowired的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AutowiredAnnotationBeanPostProcessor类大概情况"><span class="nav-number">2.</span> <span class="nav-text">AutowiredAnnotationBeanPostProcessor类大概情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">3.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开始调试"><span class="nav-number">3.1.</span> <span class="nav-text">开始调试</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,7 +437,7 @@
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -414,12 +480,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">200k</span>
+    <span title="站点总字数">205k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:33</span>
+    <span title="站点阅读时长">5:41</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
